@@ -1,5 +1,6 @@
 /* ensure all pages have Bootstrap CSS */
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import './variables';
 
 .md-container {
   max-width: 800px;
@@ -17,10 +18,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid var(--color-five);
 }
 
 .sml-logo {
   height: 1em;
   margin-left: 10px;
+}
+.link {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+.logo {
+  position: absolute;
+  left: 1rem;
+  background-color: var(--color-one);
+  a {
+    color: white;
+  }
+}
+.row {
+  min-height: 8rem;
+  margin: 2rem 0;
 }

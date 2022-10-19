@@ -1,3 +1,5 @@
+# added nodemon because fast refresh does not work on my machine
+
 # reactstrap Example
 
 This example shows how to use Next.js with [reactstrap](https://reactstrap.github.io/).

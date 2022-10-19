@@ -1,0 +1,9 @@
+{
+  "verbose": true,
+  "ignore": ["node_modules", ".next"],
+  "watch": ["server/**/*", "server.js", "next-server.js", "pages/", "types/", "lib/", "helpers/", "components/", "styles/"],
+  "ext": "js json ts jsx tsx css scss",
+  "exec": "next dev",
+  "pollingInterval": 100,
+  "legacyWatch": true
+}

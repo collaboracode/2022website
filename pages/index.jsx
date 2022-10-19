@@ -9,87 +9,40 @@ import {
   CardTitle,
   CardBody,
 } from 'reactstrap'
+import Image from 'next/image'
 
 export default function Home() {
   return (
-    <Container className="md-container">
+    <>
       <Head>
-        <title>ReactJS with reactstrap</title>
-        <link rel="icon" href="/favicon-32x32.png" />
+        <title>the home page</title>
       </Head>
-      <Container>
-        <h1>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-        <p>
-          Get started by editing <code>pages/index.js</code>
-        </p>
-        <Container>
-          <Row>
-            <Col sm="6">
-              <Card className="my-3">
-                <CardBody>
-                  <CardTitle tag="h5">Documentation</CardTitle>
-                  <CardText>
-                    Find in-depth information about Next.js features and API.
-                  </CardText>
-                  <Button color="primary" href="https://nextjs.org/docs">
-                    More &rarr;
-                  </Button>
-                </CardBody>
-              </Card>
-            </Col>
-            <Col sm="6">
-              <Card className="my-3">
-                <CardBody>
-                  <CardTitle tag="h5">Learn</CardTitle>
-                  <CardText>
-                    Learn about Next.js in an interactive course with quizzes!
-                  </CardText>
-                  <Button color="primary" href="https://nextjs.org/learn">
-                    More &rarr;
-                  </Button>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-          <Row>
-            <Col sm="6">
-              <Card className="my-3">
-                <CardBody>
-                  <CardTitle tag="h5">Examples</CardTitle>
-                  <CardText>
-                    Discover and deploy boilerplate example Next.js projects.
-                  </CardText>
-                  <Button
-                    color="primary"
-                    href="https://github.com/vercel/next.js/tree/canary/examples"
-                  >
-                    More &rarr;
-                  </Button>
-                </CardBody>
-              </Card>
-            </Col>
-            <Col sm="6">
-              <Card className="my-3">
-                <CardBody>
-                  <CardTitle tag="h5">Deploy</CardTitle>
-                  <CardText>
-                    Instantly deploy your Next.js site to a public URL with
-                    Vercel.
-                  </CardText>
-                  <Button
-                    color="primary"
-                    href="https://vercel.com/new?utm_source=github&utm_medium=example&utm_campaign=next-example"
-                  >
-                    More &rarr;
-                  </Button>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
+      <Container className="lg-container" >
+        <Row className='row'>
+          <Col className='' md="7"><Image
+            src="/Puzzle.avif"
+            alt="Picture "
+            width="1170"
+            height="780"
+            layout="responsive" 
+            /></Col>
+          <Col md="5">
+            <ul>
+              <li>Collaborate</li>
+              <li>Learn</li>
+              <li>bullet 3</li>
+              <li>Develop</li>
+            </ul>
+          </Col>
+        </Row>
+        <Row className='row'>
+          <Col className='bg-primary' md="4">Call to Action</Col>
+          <Col className='bg-warning' md="8">About</Col>
+        </Row>
+        <Row className='row'>
+          <Col className='bg-primary' md="12">Featured Projects</Col>
+        </Row>
       </Container>
-    </Container>
+    </>
   )
 }
