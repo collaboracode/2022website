@@ -13,7 +13,7 @@
 }
 
 .cntr-footer {
-  height: 80px;
+  // height: 80px;
   margin-top: 20px;
   display: flex;
   align-items: center;
@@ -38,6 +38,9 @@
   }
 }
 .row {
-  min-height: 8rem;
+  // min-height: 8rem;
   margin: 2rem 0;
+}
+.powered {
+  text-align: center;
 }
