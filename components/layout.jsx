@@ -27,6 +27,7 @@ export default function Layout({ children }) {
   const [contactModal, setContactModal] = useState(false);
 
   const [email, setEmail] = useState('');
+  const [emailbody, setEmailbody] = useState('');
 
   const mailingToggle = () => setMailingModal(!mailingModal);
   const contactToggle = () => setContactModal(!contactModal);
@@ -38,19 +39,29 @@ export default function Layout({ children }) {
       case 'EMAIL':
         setEmail(val);
         break;
+      case 'EMAILBODY':
+        setEmailbody(val);
+        break;
     }
   }
   const handleClick = (e) => {
 
   }
 
+  const testPath = (route) => {
+    const rgx = new RegExp(
+      `^\/${route}?(?![a-z])(?![0-9])`//, // regex to check the begining of the path
+      //'i' //? do we actually want it to not be case sensitive?
+    )
+    return rgx.test(asPath)
+  }
   return (
     <>
       <nav>
         <Nav
           card
           pills
-          className="justify-content-center mt-1"
+          className="justify-content-center ml-0 mr-0 mt-1"
         >
           <NavItem
             className='logo'
@@ -69,14 +80,6 @@ export default function Layout({ children }) {
               Home
             </NavLink>
           </NavItem>
-          <NavItem>
-            <NavLink href="/test"
-              // regex to check just the begining of the path
-              active={/^\/test?(?![a-z])(?![0-9])/i.test(asPath)}
-            >
-              Test
-            </NavLink>
-          </NavItem>
         </Nav>
       </nav>
       <div>{children}</div>
@@ -92,6 +95,11 @@ export default function Layout({ children }) {
               <FormGroup>
                 <Label for='email'>Email</Label>
                 <Input id='email' name='email' onChange={handleChange} placeholder='Email' type='email' value={email} />
+                
+              </FormGroup>
+              <FormGroup>
+                <Label for='emailbody'>Your Message</Label>
+                <Input id='emailbody' name='emailbody' onChange={handleChange} placeholder="Your Message" type='textarea' value={emailbody} />
               </FormGroup>
             </Form>
           </ModalBody>
@@ -108,11 +116,11 @@ export default function Layout({ children }) {
                 <li><Link href="https://www.meetup.com/collaboracode-danville-ca/" passHref><a target="_blank">Danville, CA</a></Link></li>
               </ul>
             </Col>
-            <Col sm="12" md="4">col2</Col>
+            <Col sm="12" md="4"></Col>
             <Col sm="12" md="4">
               <ul className="list-unstyled">
                 <li><Link href="privacy">Privacy Policy</Link></li>
-                <li><a href="#" onClick={mailingToggle}>Mailing List</a></li>
+                <li><a href="#" className='disabled' onClick={mailingToggle}>Mailing List</a></li>
                 <li><a href="#" onClick={contactToggle}>Contact Us</a></li>
               </ul>
             </Col>
