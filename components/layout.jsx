@@ -121,7 +121,7 @@ export default function Layout({ children }) {
               <ul className="list-unstyled">
                 <li><Link href="privacy">Privacy Policy</Link></li>
                 <li><a href="#" className='disabled' onClick={mailingToggle}>Mailing List</a></li>
-                <li><a href="#" onClick={contactToggle}>Contact Us</a></li>
+                <li><a href="#" className='disabled' onClick={contactToggle}>Contact Us</a></li>
               </ul>
             </Col>
           </Row>
