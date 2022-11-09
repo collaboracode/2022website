@@ -10,7 +10,7 @@ const imgStyle = {
 export default function Resources() {
     return (
     <div>
-      
+      <Button color="primary">primary</Button>{' '}
       <Media>
       <Media left href="https://javascript.info">
         <Media object src="https://javascript.info/img/site_preview_en_512x512.png" style={imgStyle} alt="Generic placeholder image" />
@@ -18,7 +18,7 @@ export default function Resources() {
       </Media>
       <Media body>
         <Media heading>
-          https://javascript.info/
+        https://javascript.info/
         </Media>
         The Modern JavaScript Tutorial
         How it's done now. From the basics to advanced topics with simple, but detailed explanations.
