@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import {
   Container,
   Row,
@@ -9,7 +10,6 @@ import {
   CardTitle,
   CardBody
 } from 'reactstrap'
-import Image from 'next/image'
 
 export default function Home() {
   return (
@@ -17,6 +17,7 @@ export default function Home() {
       <Head>
         <title>the home page</title>
       </Head>
+
       <Container className="lg-container" >
         <Row className='row'>
           <Col className='' md="7">
@@ -42,12 +43,16 @@ export default function Home() {
           <Col md="6">
             <h4>Please join us each week on Tuesday via Meetup</h4>
             <Row>
-              <Col md="6"><Button className="bg-color-four text-white hover-bg-color-five" onClick={()=>{
-              window.open("https://www.meetup.com/collaboracode-sanantonio-tx/",'_blank')
-            }}>San Antonio, TX</Button></Col>
-            <Col md="6"><Button className="bg-color-four text-white" onClick={()=>{
-              window.open("https://www.meetup.com/collaboracode-danville-ca/",'_blank')
-            }}>Danville, CA</Button></Col>
+              <Col md="6">
+                <Button className="bg-color-four text-white hover-bg-color-five" onClick={()=>{
+                window.open("https://www.meetup.com/collaboracode-sanantonio-tx/",'_blank')
+                }}>San Antonio, TX</Button>
+              </Col>
+              <Col md="6">
+                <Button className="bg-color-four text-white" onClick={()=>{
+                window.open("https://www.meetup.com/collaboracode-danville-ca/",'_blank')
+                }}>Danville, CA</Button>
+              </Col>
             </Row>         
 
           </Col>
@@ -60,6 +65,7 @@ export default function Home() {
             </p>
           </Col>
         </Row>
+        {/* //? maybe slightly randomize the shape of the backgound */}
         <Row className='row'>
           <Col className='featured' md="12">
             <h2>Here are some examples of things we've built</h2>

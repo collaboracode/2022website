@@ -1,10 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import {
-  Nav,
-  NavItem,
-  NavLink,
   Container,
   Row,
   Col,
@@ -17,20 +14,54 @@ import {
   Label,
   Input,
   FormText,
-  Button
+  Button,
+  // Navbar Items
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  NavbarText
 } from "reactstrap"
 
-export default function Layout({ children }) {
+export default function Layout(props) {
+  const { children } = props;
   const { asPath } = useRouter()
+
+  const [navOpen, setNavOpen] = useState(false);
+  const [navFixed, setNavFixed] = useState('');
+  const [prevPos, setPrevPos] = useState(0);
 
   const [mailingModal, setMailingModal] = useState(false);
   const [contactModal, setContactModal] = useState(false);
 
   const [email, setEmail] = useState('');
   const [emailbody, setEmailbody] = useState('');
-
+  
+  useEffect(() => {
+    const handleScroll = (e) => {
+      const position = window.pageYOffset;
+      
+      setNavFixed(position > 60 && position < prevPos ? 'top' : '');
+      setPrevPos(position);
+    }
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [])
+  
+  const toggleNav = () => setNavOpen(!navOpen);
   const mailingToggle = () => setMailingModal(!mailingModal);
   const contactToggle = () => setContactModal(!contactModal);
+
+
   const handleChange = (e) => {
     let field = e.target.name;  // can also be e.target.id if id & name are the same for the input
     let val = e.target.value;
@@ -44,6 +75,11 @@ export default function Layout({ children }) {
         break;
     }
   }
+
+  const handleScroll = (e) => {
+    console.log(e)
+  }
+
   const handleClick = (e) => {
 
   }
@@ -57,7 +93,7 @@ export default function Layout({ children }) {
   }
   return (
     <>
-      <nav>
+      {/* <nav>
         <Nav
           card
           pills
@@ -80,9 +116,36 @@ export default function Layout({ children }) {
               Home
             </NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink
+              href="/resources"
+              active={testPath('resources')}
+            >
+              Resources
+            </NavLink>
+          </NavItem>
         </Nav>
-      </nav>
+      </nav> */}
+      <Navbar color='dark' dark expand='md' fixed={ navFixed }>
+        <NavbarBrand href='/'>Collaboracode</NavbarBrand>
+        <NavbarToggler onClick={ toggleNav } />
+        <Collapse isOpen={ navOpen } navbar>
+          <Nav className='m-auto' navbar>
+            <NavItem>
+              <NavLink
+                href="/resources"
+                active={testPath('resources')}
+              >
+                Resources
+              </NavLink>
+            </NavItem>
+          </Nav>
+        </Collapse>
+      </Navbar>
+
+      {/* the page goes in here */}
       <div>{children}</div>
+
       <footer className="cntr-footer">
         <Modal isOpen={mailingModal} toggle={mailingToggle}>
           <ModalHeader>Mailing List Signup</ModalHeader>

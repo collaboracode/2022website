@@ -50,6 +50,10 @@
   background-color: #99C24D60;
 }
 
+.bordered {
+  border: 2px solid var(--color-five) !important;
+}
+
 body {
   color: var(--color-five);
 }
@@ -61,6 +65,16 @@ body {
 .sml-card {
   width: 22rem;
   margin: 1rem 0;
+}
+
+.nav-link.active {
+  color: var(--color-three) !important;
+}
+.nav-link:not(.active) {
+  color: var(--color-two) !important;
+}
+.nav-link:not(.active):hover {
+  color: #fff !important;
 }
 
 .cntr-footer {
