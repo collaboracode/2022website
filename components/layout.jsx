@@ -37,6 +37,7 @@ export default function Layout(props) {
   const [navOpen, setNavOpen] = useState(false);
   const [navFixed, setNavFixed] = useState('');
 
+  const [currPos, setCurrPos] = useState(0);
   const [prevPos, setPrevPos] = useState(0);
 
   const [mailingModal, setMailingModal] = useState(false);
@@ -44,35 +45,29 @@ export default function Layout(props) {
 
   const [email, setEmail] = useState('');
   const [emailbody, setEmailbody] = useState('');
-  
+
   useEffect(() => {
-    const handleScroll = () => {
-      const position = window.pageYOffset;
-      // setPrevPos(position);
-      console.log(position)
-      
-    }
-    
+    setNavFixed(currPos > 60 && currPos < prevPos ? 'top' : '');
+
     window.addEventListener('scroll', handleScroll);
     
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // useEffect(() => {
-  //   const position = window.pageYOffset;
-  //   console.log(position, prevPos)
-  //   setNavFixed(position > 60 && position > prevPos ? 'top' : '');
-  // }, [prevPos]);
+  }, [currPos]);
 
   const toggleNav = () => setNavOpen(!navOpen);
   const mailingToggle = () => setMailingModal(!mailingModal);
   const contactToggle = () => setContactModal(!contactModal);
 
-  // const handleScroll = (e) => {
-  //   const scrollY = window.scrollY;
-  //   const scrollTop = e.current.scrollTop;
-  //   console.log(scrollY, scrollTop)
-  // }
+  const handleScroll = (e) => {
+    const position = window.scrollY;
+  
+    if (currPos === 0) {
+      setCurrPos(position);
+    } else {
+      setPrevPos(currPos);
+      setCurrPos(position);
+    }
+  }
 
   const handleChange = (e) => {
     let field = e.target.name;  // can also be e.target.id if id & name are the same for the input
