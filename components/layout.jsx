@@ -36,6 +36,7 @@ export default function Layout(props) {
 
   const [navOpen, setNavOpen] = useState(false);
   const [navFixed, setNavFixed] = useState('');
+
   const [prevPos, setPrevPos] = useState(0);
 
   const [mailingModal, setMailingModal] = useState(false);
@@ -45,22 +46,33 @@ export default function Layout(props) {
   const [emailbody, setEmailbody] = useState('');
   
   useEffect(() => {
-    const handleScroll = (e) => {
+    const handleScroll = () => {
       const position = window.pageYOffset;
+      // setPrevPos(position);
+      console.log(position)
       
-      setNavFixed(position > 60 && position < prevPos ? 'top' : '');
-      setPrevPos(position);
     }
     
     window.addEventListener('scroll', handleScroll);
     
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [])
-  
+  }, []);
+
+  // useEffect(() => {
+  //   const position = window.pageYOffset;
+  //   console.log(position, prevPos)
+  //   setNavFixed(position > 60 && position > prevPos ? 'top' : '');
+  // }, [prevPos]);
+
   const toggleNav = () => setNavOpen(!navOpen);
   const mailingToggle = () => setMailingModal(!mailingModal);
   const contactToggle = () => setContactModal(!contactModal);
 
+  // const handleScroll = (e) => {
+  //   const scrollY = window.scrollY;
+  //   const scrollTop = e.current.scrollTop;
+  //   console.log(scrollY, scrollTop)
+  // }
 
   const handleChange = (e) => {
     let field = e.target.name;  // can also be e.target.id if id & name are the same for the input
@@ -76,10 +88,6 @@ export default function Layout(props) {
     }
   }
 
-  const handleScroll = (e) => {
-    console.log(e)
-  }
-
   const handleClick = (e) => {
 
   }
@@ -91,6 +99,17 @@ export default function Layout(props) {
     )
     return rgx.test(asPath)
   }
+
+  // const CustomNavbar = forwardRef((props, ref) => {
+  //   const navbarRef = useRef(null);
+
+  //   useImperativeHandle(ref, () => ({
+  //     scrollTop: navbarRef.current.scrollTop
+  //   }));
+
+  //   return <Navbar color='dark' dark expand='md' fixed={ navFixed } onScroll={ handleScroll } ref={ navbarRef }>{ props.children }</Navbar>;
+  // })
+
   return (
     <>
       {/* <nav>
@@ -126,6 +145,7 @@ export default function Layout(props) {
           </NavItem>
         </Nav>
       </nav> */}
+      
       <Navbar color='dark' dark expand='md' fixed={ navFixed }>
         <NavbarBrand href='/'>Collaboracode</NavbarBrand>
         <NavbarToggler onClick={ toggleNav } />
@@ -133,6 +153,7 @@ export default function Layout(props) {
           <Nav className='m-auto' navbar>
             <NavItem>
               <NavLink
+                className='text-center'
                 href="/resources"
                 active={testPath('resources')}
               >

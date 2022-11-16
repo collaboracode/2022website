@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from 'react'
+
 import Head from 'next/head'
 import Image from 'next/image'
 import {
@@ -12,6 +14,17 @@ import {
 } from 'reactstrap'
 
 export default function Home() {
+
+  const [borderShape, setBoarderShape] = useState('radius-one')
+  const borderShapes = [ // class names
+    'radius-one',
+    'radius-two',
+    'radius-three'
+  ]
+  useEffect(() => {
+    setBoarderShape(borderShapes[Math.floor(Math.random() * 3)])
+  }, [])
+
   return (
     <>
       <Head>
@@ -44,30 +57,30 @@ export default function Home() {
             <h4>Please join us each week on Tuesday via Meetup</h4>
             <Row>
               <Col md="6">
-                <Button className="bg-color-four text-white hover-bg-color-five" onClick={()=>{
-                window.open("https://www.meetup.com/collaboracode-sanantonio-tx/",'_blank')
+                <Button className="bg-color-four text-white hover-bg-color-five" onClick={() => {
+                  window.open("https://www.meetup.com/collaboracode-sanantonio-tx/", '_blank')
                 }}>San Antonio, TX</Button>
               </Col>
               <Col md="6">
-                <Button className="bg-color-four text-white" onClick={()=>{
-                window.open("https://www.meetup.com/collaboracode-danville-ca/",'_blank')
+                <Button className="bg-color-four text-white" onClick={() => {
+                  window.open("https://www.meetup.com/collaboracode-danville-ca/", '_blank')
                 }}>Danville, CA</Button>
               </Col>
-            </Row>         
+            </Row>
 
           </Col>
 
           <Col md="6">
             <h3>What we're about</h3>
-            <p>This is an online group for people of all levels of experience. We are about getting together and creating small projects as a team in HTML/CSS/Javascript. 
-              Looking for anyone who is interested in gaining tangible experience working together on a software project. 
+            <p>This is an online group for people of all levels of experience. We are about getting together and creating small projects as a team in HTML/CSS/Javascript.
+              Looking for anyone who is interested in gaining tangible experience working together on a software project.
               If you are involved in a bootcamp, receiving a technological education at a college, self-learning, or would like to give back to your local tech community, we look forward to meeting you and making some fun projects.
             </p>
           </Col>
         </Row>
         {/* //? maybe slightly randomize the shape of the backgound */}
         <Row className='row'>
-          <Col className='featured' md="12">
+          <Col className={`featured ${borderShape}`} md="12">
             <h2>Here are some examples of things we've built</h2>
             <ul>
               <li>This, as in, You are here</li>
