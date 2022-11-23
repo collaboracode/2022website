@@ -16,40 +16,27 @@ import {
 
 const slides = [
   {
-    title: "Machu Picchu",
-    subtitle: "Peru",
-    description: "Adventure is never far away",
+    title: "Big Brother App",
+    subtitle: "MERN",
+    description: "Vote for your favs, or not because it is not live currently",
     image:
-      "https://images.unsplash.com/photo-1571771019784-3ff35f4f4277?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=800&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
+      "/big-brother-app.png"
   },
   {
-    title: "Chamonix",
-    subtitle: "France",
-    description: "Let your dreams come true",
+    title: "Tic Tac Toe: Jaggy Edition",
+    subtitle: "React",
+    description: "Let your rows and columns move",
     image:
-      "https://images.unsplash.com/photo-1581836499506-4a660b39478a?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=800&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
+      "/tic-tac-toe-jaggy.png"
   },
   {
-    title: "Mimisa Rocks",
-    subtitle: "Australia",
-    description: "A piece of heaven",
+    title: "Hangman",
+    subtitle: "JavaScript",
+    description: "A hangman game",
     image:
-      "https://images.unsplash.com/photo-1566522650166-bd8b3e3a2b4b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=800&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
+      "/hangman.png"
   },
-  {
-    title: "Four",
-    subtitle: "Australia",
-    description: "A piece of heaven",
-    image:
-      "https://images.unsplash.com/flagged/photo-1564918031455-72f4e35ba7a6?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=800&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
-  },
-  {
-    title: "Five",
-    subtitle: "Australia",
-    description: "A piece of heaven",
-    image:
-      "https://images.unsplash.com/photo-1579130781921-76e18892b57b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=800&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
-  }
+
 ];
 export default function Home() {
 
@@ -128,11 +115,13 @@ export default function Home() {
             </ul>
           </Col>
         </Row>
-        <Row>
-          <Col><Slider slides={slides} />
-          </Col>
-        </Row>
+
       </Container>
+      {/* I moved this out since it is a centerpiece kind of element so I think it should get to push past the margins
+          that the rest of the page/pages follow, which I think enhances the effect*/}
+      <div className="xl-container">
+        <Slider slides={slides} />
+      </div>
     </>
   )
 }

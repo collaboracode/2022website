@@ -82,9 +82,6 @@ function Slide({ slide, offset }) {
       >
         <div
           className="slideBackground"
-          style={{
-            backgroundImage: `url('${slide.image}')`
-          }}
         />
         <div
           className="slideContent"
