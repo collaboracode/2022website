@@ -35,28 +35,34 @@ export default function Layout(props) {
   const { asPath } = useRouter()
 
   const [navOpen, setNavOpen] = useState(false);
-  const [navFixed, setNavFixed] = useState('');
+  //* I decided to keep it fixed and add margin at the top, and just translate it as needed
+  // const [navFixed, setNavFixed] = useState(''); 
 
-  const [prevPos, setPrevPos] = useState(0);
+  const [scrollPos, setScrollPos] = useState(0);
+  const [navClassName, setNavClassName] = useState('nav-scroll-in')
 
   const [mailingModal, setMailingModal] = useState(false);
   const [contactModal, setContactModal] = useState(false);
 
   const [email, setEmail] = useState('');
   const [emailbody, setEmailbody] = useState('');
-  
+
   useEffect(() => {
     const handleScroll = () => {
+      const navHight = 56 // this is the hight of the nav in pixels
       const position = window.pageYOffset;
-      // setPrevPos(position);
-      console.log(position)
-      
+      if (position < scrollPos) {
+        setNavClassName('nav-scroll-in')
+      } else if (position > scrollPos && position > navHight * 2) { // a little buffer before it will disappear
+        setNavOpen(false)
+        setNavClassName('nav-scroll-out')
+      }
+      setScrollPos(position);
     }
-    
     window.addEventListener('scroll', handleScroll);
-    
+
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [scrollPos]);
 
   // useEffect(() => {
   //   const position = window.pageYOffset;
@@ -145,11 +151,12 @@ export default function Layout(props) {
           </NavItem>
         </Nav>
       </nav> */}
-      
-      <Navbar color='dark' dark expand='md' fixed={ navFixed }>
+
+      <Navbar color='dark' dark expand='md' fixed={'top'}
+        className={`${navClassName}`}>
         <NavbarBrand href='/'>Collaboracode</NavbarBrand>
-        <NavbarToggler onClick={ toggleNav } />
-        <Collapse isOpen={ navOpen } navbar>
+        <NavbarToggler onClick={toggleNav} />
+        <Collapse isOpen={navOpen} navbar>
           <Nav className='m-auto' navbar>
             <NavItem>
               <NavLink
@@ -165,7 +172,7 @@ export default function Layout(props) {
       </Navbar>
 
       {/* the page goes in here */}
-      <div>{children}</div>
+      <div className='main-content'>{children}</div>
 
       <footer className="cntr-footer">
         <Modal isOpen={mailingModal} toggle={mailingToggle}>
@@ -179,7 +186,7 @@ export default function Layout(props) {
               <FormGroup>
                 <Label for='email'>Email</Label>
                 <Input id='email' name='email' onChange={handleChange} placeholder='Email' type='email' value={email} />
-                
+
               </FormGroup>
               <FormGroup>
                 <Label for='emailbody'>Your Message</Label>
@@ -188,7 +195,7 @@ export default function Layout(props) {
             </Form>
           </ModalBody>
           <ModalFooter>
-              <Button color='primary' onClick={handleClick}>Submit</Button>
+            <Button color='primary' onClick={handleClick}>Submit</Button>
           </ModalFooter>
         </Modal>
         <Container>

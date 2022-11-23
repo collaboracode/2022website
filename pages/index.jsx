@@ -128,11 +128,13 @@ export default function Home() {
             </ul>
           </Col>
         </Row>
-        <Row>
-          <Col><Slider slides={slides} />
-          </Col>
-        </Row>
+
       </Container>
+      {/* I moved this out since it is a centerpiece kind of element so I think it should get to push past the margins
+          that the rest of the page/pages follow, which I think enhances the effect*/}
+      <div className="xl-container">
+        <Slider slides={slides} />
+      </div>
     </>
   )
 }
