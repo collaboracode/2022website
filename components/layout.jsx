@@ -35,6 +35,7 @@ export default function Layout(props) {
   const { asPath } = useRouter()
 
   const [navOpen, setNavOpen] = useState(false);
+  
   //* I decided to keep it fixed and add margin at the top, and just translate it as needed
   // const [navFixed, setNavFixed] = useState(''); 
 
@@ -51,9 +52,9 @@ export default function Layout(props) {
     const handleScroll = () => {
       const navHight = 56 // this is the hight of the nav in pixels
       const position = window.pageYOffset;
-      if (position < scrollPos) {
+      if (position < scrollPos || position < navHight * 2) { // a little buffer before it will disappear
         setNavClassName('nav-scroll-in')
-      } else if (position > scrollPos && position > navHight * 2) { // a little buffer before it will disappear
+      } else if (position > scrollPos) { 
         setNavOpen(false)
         setNavClassName('nav-scroll-out')
       }
