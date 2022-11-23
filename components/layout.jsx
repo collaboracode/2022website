@@ -35,30 +35,38 @@ export default function Layout(props) {
   const { asPath } = useRouter()
 
   const [navOpen, setNavOpen] = useState(false);
-  
+
   //* I decided to keep it fixed and add margin at the top, and just translate it as needed
   // const [navFixed, setNavFixed] = useState(''); 
 
   const [scrollPos, setScrollPos] = useState(0);
   const [navClassName, setNavClassName] = useState('nav-scroll-in')
+  const [snakeToggle, setSnakeToggle] = useState(false)
 
   const [mailingModal, setMailingModal] = useState(false);
   const [contactModal, setContactModal] = useState(false);
 
   const [email, setEmail] = useState('');
   const [emailbody, setEmailbody] = useState('');
-
+  useEffect(() => {
+    document.body.className = 'scollBarOne'
+  }, [])
   useEffect(() => {
     const handleScroll = () => {
       const navHight = 56 // this is the hight of the nav in pixels
       const position = window.pageYOffset;
       if (position < scrollPos || position < navHight * 2) { // a little buffer before it will disappear
         setNavClassName('nav-scroll-in')
-      } else if (position > scrollPos) { 
+      } else if (position > scrollPos) {
         setNavOpen(false)
         setNavClassName('nav-scroll-out')
       }
       setScrollPos(position);
+      setSnakeToggle(!snakeToggle)
+      if (Math.floor(Math.random() * 2) === 1) {
+        document.body.className = snakeToggle ? 'scollBarOne' : 'scrollBarTwo'
+      }
+
     }
     window.addEventListener('scroll', handleScroll);
 
@@ -77,7 +85,7 @@ export default function Layout(props) {
 
   // const handleScroll = (e) => {
   //   const position = window.scrollY;
-  
+
   //   if (currPos === 0) {
   //     setCurrPos(position);
   //   } else {
@@ -158,7 +166,8 @@ export default function Layout(props) {
         </Nav>
       </nav> */}
 
-      <Navbar color='dark' dark expand='md' fixed={'top'}
+      <Navbar expand='md' fixed={'top'}
+        // color='dark' dark 
         className={`${navClassName}`}>
         <NavbarBrand href='/'>Collaboracode</NavbarBrand>
         <NavbarToggler onClick={toggleNav} />
@@ -177,7 +186,7 @@ export default function Layout(props) {
         </Collapse>
       </Navbar>
 
-      {/* the page goes in here */}
+      {/* could make this an id selector */}
       <div className='main-content'>{children}</div>
 
       <footer className="cntr-footer">
