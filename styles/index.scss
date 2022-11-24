@@ -411,13 +411,13 @@ html {
 
     &::-webkit-scrollbar-thumb {
       background-image:
-        radial-gradient(8px at left, var(--color-three) 100%, #0000),
+        radial-gradient(10px at left, var(--color-three) 100%, #0000),
         radial-gradient(10px at right, var(--color-three) 100%, #0000);
       // background-position: 25px 25px, 26px 0;
       //  background-position: 25px 0px, 26px 25px;
       background-size: 20px 20px;
     }
-
+ 
     &.scollBarOne::-webkit-scrollbar-thumb {
       background-position: 10px 10px, 11px 0;
     }
