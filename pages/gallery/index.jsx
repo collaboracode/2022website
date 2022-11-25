@@ -10,6 +10,7 @@ export default function Gallery({ Component, pageProps, projects }) {
           <h1 className="text-center mb-5">Hello, and welcome to our project gallery</h1>
           {projects ? projects.map((project, i) => {
             const {
+              id,
               mainImage,
               title,
               subtitle,
@@ -18,7 +19,7 @@ export default function Gallery({ Component, pageProps, projects }) {
               gitHubLink
             } = project
             return (
-              <Row sm={1} className={`justify-content-center mt-5 mb-5`}>
+              <Row key={id} sm={1} className={`justify-content-center mt-5 mb-5`}>
                 <Col md={6} className={`mt-5 mb-5`}>
                   <Card className={`${styles.card}`}>
                     {/* //todo make this an array of images, and make it a bootstrap carousel */}
@@ -55,6 +56,7 @@ export default function Gallery({ Component, pageProps, projects }) {
 export async function getStaticProps() {
   const projects = [ //? maybe add external source for data
     {
+      id: 1,
       mainImage: { link: '/tic-tac-toe-jaggy.png', width: "2560", height: '1440' }, // todo make this an array of image objects
       title: "Tic-Tac-Toe: Jaggy Edition",
       subtitle: "-- React",
@@ -63,6 +65,7 @@ export async function getStaticProps() {
       gitHubLink: '#', // make array, and loop through them
     },
     {
+      id: 2,
       mainImage: { link: '/big-brother-app.png', width: "2560", height: '1440' },
       title: "Big Brother",
       subtitle: "-- React/Express",
@@ -71,6 +74,7 @@ export async function getStaticProps() {
       gitHubLink: '#',
     },
     {
+      id: 3,
       mainImage: { link: '/hangman.png', width: "2560", height: '1440' },
       title: "Hangman",
       subtitle: "-- JavaScript",
