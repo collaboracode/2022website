@@ -182,6 +182,15 @@ export default function Layout(props) {
                 Resources
               </NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink
+                className='text-center'
+                href="/gallery"
+                active={testPath('gallery')}
+              >
+                Gallery
+              </NavLink>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
