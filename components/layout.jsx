@@ -35,39 +35,64 @@ export default function Layout(props) {
   const { asPath } = useRouter()
 
   const [navOpen, setNavOpen] = useState(false);
-  const [navFixed, setNavFixed] = useState('');
 
-  const [currPos, setCurrPos] = useState(0);
-  const [prevPos, setPrevPos] = useState(0);
+  //* I decided to keep it fixed and add margin at the top, and just translate it as needed
+  // const [navFixed, setNavFixed] = useState(''); 
+
+  const [scrollPos, setScrollPos] = useState(0);
+  const [navClassName, setNavClassName] = useState('nav-scroll-in')
+  const [snakeToggle, setSnakeToggle] = useState(false)
 
   const [mailingModal, setMailingModal] = useState(false);
   const [contactModal, setContactModal] = useState(false);
 
   const [email, setEmail] = useState('');
   const [emailbody, setEmailbody] = useState('');
-
   useEffect(() => {
-    setNavFixed(currPos > 60 && currPos < prevPos ? 'top' : '');
+    document.body.className = 'scollBarOne'
+  }, [])
+  useEffect(() => {
+    const handleScroll = () => {
+      const navHight = 56 // this is the hight of the nav in pixels
+      const position = window.pageYOffset;
+      if (position < scrollPos || position < navHight * 2) { // a little buffer before it will disappear
+        setNavClassName('nav-scroll-in')
+      } else if (position > scrollPos) {
+        setNavOpen(false)
+        setNavClassName('nav-scroll-out')
+      }
+      setScrollPos(position);
+      setSnakeToggle(!snakeToggle)
+      if (Math.floor(Math.random() * 2) === 1) {
+        document.body.className = snakeToggle ? 'scollBarOne' : 'scrollBarTwo'
+      }
 
+    }
     window.addEventListener('scroll', handleScroll);
-    
+
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [currPos]);
+  }, [scrollPos]);
+
+  // useEffect(() => {
+  //   const position = window.pageYOffset;
+  //   console.log(position, prevPos)
+  //   setNavFixed(position > 60 && position > prevPos ? 'top' : '');
+  // }, [prevPos]);
 
   const toggleNav = () => setNavOpen(!navOpen);
   const mailingToggle = () => setMailingModal(!mailingModal);
   const contactToggle = () => setContactModal(!contactModal);
 
-  const handleScroll = (e) => {
-    const position = window.scrollY;
-  
-    if (currPos === 0) {
-      setCurrPos(position);
-    } else {
-      setPrevPos(currPos);
-      setCurrPos(position);
-    }
-  }
+  // const handleScroll = (e) => {
+  //   const position = window.scrollY;
+
+  //   if (currPos === 0) {
+  //     setCurrPos(position);
+  //   } else {
+  //     setPrevPos(currPos);
+  //     setCurrPos(position);
+  //   }
+  // }
 
   const handleChange = (e) => {
     let field = e.target.name;  // can also be e.target.id if id & name are the same for the input
@@ -140,11 +165,13 @@ export default function Layout(props) {
           </NavItem>
         </Nav>
       </nav> */}
-      
-      <Navbar color='dark' dark expand='md' fixed={ navFixed }>
+
+      <Navbar expand='md' fixed={'top'}
+        // color='dark' dark 
+        className={`${navClassName}`}>
         <NavbarBrand href='/'>Collaboracode</NavbarBrand>
-        <NavbarToggler onClick={ toggleNav } />
-        <Collapse isOpen={ navOpen } navbar>
+        <NavbarToggler onClick={toggleNav} />
+        <Collapse isOpen={navOpen} navbar>
           <Nav className='m-auto' navbar>
             <NavItem>
               <NavLink
@@ -155,12 +182,21 @@ export default function Layout(props) {
                 Resources
               </NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink
+                className='text-center'
+                href="/gallery"
+                active={testPath('gallery')}
+              >
+                Gallery
+              </NavLink>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
 
-      {/* the page goes in here */}
-      <div>{children}</div>
+      {/* could make this an id selector */}
+      <div className='main-content'>{children}</div>
 
       <footer className="cntr-footer">
         <Modal isOpen={mailingModal} toggle={mailingToggle}>
@@ -174,7 +210,7 @@ export default function Layout(props) {
               <FormGroup>
                 <Label for='email'>Email</Label>
                 <Input id='email' name='email' onChange={handleChange} placeholder='Email' type='email' value={email} />
-                
+
               </FormGroup>
               <FormGroup>
                 <Label for='emailbody'>Your Message</Label>
@@ -183,7 +219,7 @@ export default function Layout(props) {
             </Form>
           </ModalBody>
           <ModalFooter>
-              <Button color='primary' onClick={handleClick}>Submit</Button>
+            <Button color='primary' onClick={handleClick}>Submit</Button>
           </ModalFooter>
         </Modal>
         <Container>

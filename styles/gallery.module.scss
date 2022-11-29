@@ -1,0 +1,12 @@
+.cardText {
+  background-color: #e1f; // this is a joke, not final
+  color: snow;
+  padding: 1rem;
+}
+.card {
+  // border: 1px solid var(--color-five);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 -1.5em 1.5em rgba(0, 0, 0, 0.1), 0 0 0 1px rgb(205, 204, 204),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
