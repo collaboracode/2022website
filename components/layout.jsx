@@ -30,6 +30,8 @@ import {
   NavbarText
 } from "reactstrap"
 
+import { NavbarHeight } from '../utils/Statics';
+
 export default function Layout(props) {
   const { children } = props;
   const { asPath } = useRouter()
@@ -53,9 +55,8 @@ export default function Layout(props) {
   }, [])
   useEffect(() => {
     const handleScroll = () => {
-      const navHight = 56 // this is the hight of the nav in pixels
       const position = window.pageYOffset;
-      if (position < scrollPos || position < navHight * 2) { // a little buffer before it will disappear
+      if (position < scrollPos || position < NavbarHeight * 2) { // a little buffer before it will disappear
         setNavClassName('nav-scroll-in')
       } else if (position > scrollPos) {
         setNavOpen(false)
