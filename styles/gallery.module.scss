@@ -1,7 +1,14 @@
 .cardText {
-  background-color: #e1f; // this is a joke, not final
+  background-color: var(--color-five);
   color: snow;
+  opacity: 60%;
   padding: 1rem;
+  border-radius: 10px;
+}
+.description {
+  font-style: italic;
+  max-width: max-content;
+  border-bottom: 1px solid rgba(56, 63, 81, 0.2); // --color-five with lower opacity
 }
 .card {
   // border: 1px solid var(--color-five);

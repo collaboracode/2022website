@@ -1,0 +1,19 @@
+@media (max-width: 575px) {
+  .CardGroup {
+  .Card:not(:first-child) {
+    // border-top: 5px solid black;
+    margin-top: 3rem;
+  }
+}
+@media (min-width: 575px) {
+
+}
+}
+.CardGroup{
+  padding: 1rem;
+}
+.Heading {
+  // margin-left: -3rem;
+  padding-left: 0.2rem;
+  margin-left: clamp(-4rem, -3%, -1rem);
+}

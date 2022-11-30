@@ -34,7 +34,7 @@ export default function Gallery({ Component, pageProps, projects }) {
                     <CardBody>
                       {title && <CardTitle tag={'h2'}>{title}</CardTitle>}
                       {subtitle && <CardSubtitle tag={'h4'} className={`mb-2`}>{subtitle}</CardSubtitle>}
-                      {description && <CardText tag={'p'}>{description}</CardText>}
+                      {description && <CardText tag={'p'} className={styles.description}>{description}</CardText>}
                       {text && <CardText className={`${styles.cardText}`}>{text}</CardText>} {/*//! this is an example of how to use the styles in the module */}
                     </CardBody>
                     <CardFooter>
@@ -79,7 +79,7 @@ export async function getStaticProps() {
       title: "Hangman",
       subtitle: "-- JavaScript",
       description: "Hangman game in JavaScript",
-      text: "I don't know much about it, I did not work on this one ",
+      text: "A simple javascript game of hangman, random word pulled from Random Word API: https://random-word-api.herokuapp.com/home",
       gitHubLink: '#',
     }
   ]

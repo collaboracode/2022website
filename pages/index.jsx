@@ -103,16 +103,19 @@ export default function Home() {
             </p>
           </Col>
         </Row>
-        {/* //? maybe slightly randomize the shape of the backgound */}
-        <Row className='row'>
+        <Row>
           <Col className={`featured ${borderShape}`} md="12">
-            <h2>Here are some examples of things we've built</h2>
-            <ul>
-              <li>This, as in, You are here</li>
-              <li>Big Brother Tracker - Full Stack (App, API)</li>
-              <li>Hangman</li>
-              <li>Tic Tac Toe</li>
-            </ul>
+            <Row className='row justify-content-center text-center'>
+              <Col md='8'>
+                <h2>Here are some examples of things we've built</h2>
+                <ul className='text-left'>
+                  <li>This, as in, You are here</li>
+                  <li>Big Brother Tracker - Full Stack (App, API)</li>
+                  <li>Hangman</li>
+                  <li>Tic Tac Toe</li>
+                </ul>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>

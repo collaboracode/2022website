@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from '../styles/slider.module.scss'
 let theSlides = [];
 
 function useTilt(active) {
@@ -73,7 +74,7 @@ function Slide({ slide, offset }) {
     return (
       <div
         ref={ref}
-        className="slide"
+        className={styles.slide}
         data-active={active}
         style={{
           "--offset": offset,
@@ -81,18 +82,18 @@ function Slide({ slide, offset }) {
         }}
       >
         <div
-          className="slideBackground"
+          className={styles.slideBackground}
         />
         <div
-          className="slideContent"
+          className={styles.slideContent}
           style={{
             backgroundImage: `url('${slide.image}')`
           }}
         >
-          <div className="slideContentInner">
-            <h2 className="slideTitle">{slide.title}</h2>
-            <h3 className="slideSubtitle">{slide.subtitle}</h3>
-            <p className="slideDescription">{slide.description}</p>
+          <div className={styles.slideContentInner}>
+            <h2 className={styles.slideTitle}>{slide.title}</h2>
+            <h3 className={styles.slideSubtitle}>{slide.subtitle}</h3>
+            <p className={styles.slideDescription}>{slide.description}</p>
           </div>
         </div>
       </div>
@@ -103,8 +104,8 @@ export default function Slider({ slides }) {
     const [state, dispatch] = React.useReducer(slidesReducer, initialState);
     theSlides = slides;
     return (
-        <div className="slider-container">
-            <div className="slides">
+        <div className={styles.sliderContainer}>
+            <div className={styles.slides}>
                 <button onClick={() => dispatch({ type: "PREV" })}>‹</button>
                 {[...slides, ...slides, ...slides].map((slide, i) => {
                 let offset = slides.length + (state.slideIndex - i);

@@ -1,16 +1,17 @@
 import Head from 'next/head'
-import { Button, ButtonGroup, Media, Card, CardBody, CardGroup, CardTitle, CardSubtitle, CardText, CardImg } from 'reactstrap';
+import { Button, ButtonGroup, Media, Card, CardBody, CardGroup, CardTitle, CardSubtitle, CardText, CardImg, Container } from 'reactstrap';
 import Image from 'next/image'
+import styles from '../styles/resources.module.scss'
 
 
 export default function Resources() {
   return (
 
-    <>
+    <Container>
       {/*Below is the testing of the Card Group component*/}
-
-      <CardGroup>
-        <Card>
+      <h2 className={styles.Heading}>{ 'var beginner = () => {' }</h2>
+      <CardGroup className={styles.CardGroup}>
+        <Card className={styles.Card}>
           <CardImg
             alt="Card image cap"
             src="https://avatars.githubusercontent.com/u/49552305?s=280&v=4"
@@ -37,7 +38,7 @@ export default function Resources() {
             </Button>
           </CardBody>
         </Card>
-        <Card>
+        <Card className={styles.Card}>
           <CardImg
             alt="Card image cap"
             src="https://images.unsplash.com/photo-1534723328310-e82dad3ee43f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTM0fHxjb21wdXRlciUyMHByb2dyYW1taW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
@@ -63,7 +64,7 @@ export default function Resources() {
             </Button>
           </CardBody>
         </Card>
-        <Card>
+        <Card className={styles.Card}>
           <CardImg
             alt="Card image cap"
             src="https://images.unsplash.com/photo-1508625935447-e0ebc2cdf6bf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
@@ -90,7 +91,15 @@ export default function Resources() {
           </CardBody>
         </Card>
       </CardGroup>
-    </>
+      <h2 className={styles.Heading}>{ '}'}</h2>
+      <h2 className={styles.Heading}>{ 'let intermediate = () => {' }</h2>
+
+      <h2 className={styles.Heading}>{ '}'}</h2>
+
+      <h2 className={styles.Heading}>{ 'const advanced = _ => {' }</h2>
+      <h2 className={styles.Heading}>{ '}'}</h2>
+      <h2 className={styles.Heading}>{ '// Miscellaneous'}</h2>
+    </Container>
   )
 
 
