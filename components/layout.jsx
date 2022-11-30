@@ -62,8 +62,8 @@ export default function Layout(props) {
         setNavClassName('nav-scroll-out')
       }
       setScrollPos(position);
-      setSnakeToggle(!snakeToggle)
-      if (Math.floor(Math.random() * 2) === 1) {
+      if (Math.random() < .5) {
+        setSnakeToggle(!snakeToggle)
         document.body.className = snakeToggle ? 'scollBarOne' : 'scrollBarTwo'
       }
 

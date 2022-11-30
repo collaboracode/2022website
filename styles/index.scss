@@ -205,17 +205,10 @@ nav {
 
 /* Carousel
  related css
-
 */
-.xl-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
 .slider-container {
   padding: 8rem 0;
-  width: 80%;
+  width: 80vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -272,11 +265,11 @@ nav {
     }
 
     &:first-child {
-      left: -50%;
+      left: - 40%;
     }
 
     &:last-child {
-      right: -50%;
+      right: -40%;
     }
   }
 }
@@ -411,19 +404,19 @@ html {
 
     &::-webkit-scrollbar-thumb {
       background-image:
-        radial-gradient(10px at left, var(--color-three) 100%, #0000),
-        radial-gradient(10px at right, var(--color-three) 100%, #0000);
+        radial-gradient(10px 30px at left, var(--color-three) 100%, #0000),
+        radial-gradient(10px 30px at right, var(--color-three) 100%, #0000);
       // background-position: 25px 25px, 26px 0;
       //  background-position: 25px 0px, 26px 25px;
-      background-size: 20px 20px;
+      background-size: 20px 60px;
     }
  
     &.scollBarOne::-webkit-scrollbar-thumb {
-      background-position: 10px 10px, 11px 0;
+      background-position: 8px 30px, 12px 0;
     }
 
     &.scrollBarTwo::-webkit-scrollbar-thumb {
-      background-position: 10px 0px, 11px 10px;
+      background-position: 8px 0px, 12px 30px;
     }
   }
 
