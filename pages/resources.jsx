@@ -2,14 +2,19 @@ import Head from 'next/head'
 import { Button, ButtonGroup, Media, Card, CardBody, CardGroup, CardTitle, CardSubtitle, CardText, CardImg, Container } from 'reactstrap';
 import Image from 'next/image'
 import styles from '../styles/resources.module.scss'
-
-
 export default function Resources() {
   return (
 
     <Container>
       {/*Below is the testing of the Card Group component*/}
-      <h2 className={styles.Heading}>{ 'var beginner = () => {' }</h2>
+      <h2 className={styles.Heading}>
+        <span className={styles.Declaration}>var </span>
+        <span className={styles.FnName}>beginner </span>
+        <span className={styles.Assignment}>= </span>
+        <span className={styles.ParenAndBrace}>() </span>
+        <span className={styles.Arrow}>{'=> '}</span>
+        <span className={styles.ParenAndBrace}>{'{'}</span>
+      </h2>
       <CardGroup className={styles.CardGroup}>
         <Card className={styles.Card}>
           <CardImg
@@ -91,14 +96,30 @@ export default function Resources() {
           </CardBody>
         </Card>
       </CardGroup>
-      <h2 className={styles.Heading}>{ '}'}</h2>
-      <h2 className={styles.Heading}>{ 'let intermediate = () => {' }</h2>
+      <h2 className={styles.Heading}><span className={styles.ParenAndBrace}>{'}'}</span></h2>
+      <h2 className={styles.Heading}>
+        {/* {'let intermediate = () => {'} */}
+        <span className={styles.Declaration}>let </span>
+        <span className={styles.FnName}>intermediate </span>
+        <span className={styles.Assignment}>= </span>
+        <span className={styles.ParenAndBrace}>() </span>
+        <span className={styles.Arrow}>{'=> '}</span>
+        <span className={styles.ParenAndBrace}>{'{'}</span>
+      </h2>
 
-      <h2 className={styles.Heading}>{ '}'}</h2>
+      <h2 className={styles.Heading}><span className={styles.ParenAndBrace}>{'}'}</span></h2>
 
-      <h2 className={styles.Heading}>{ 'const advanced = _ => {' }</h2>
-      <h2 className={styles.Heading}>{ '}'}</h2>
-      <h2 className={styles.Heading}>{ '// Miscellaneous'}</h2>
+      <h2 className={styles.Heading}>
+        {/* {'const advanced = _ => {'} */}
+        <span className={styles.Declaration}>const </span>
+        <span className={styles.FnName}>advanced </span>
+        <span className={styles.Assignment}>= </span>
+        <span className={styles.ParenAndBrace}>() </span>
+        <span className={styles.Arrow}>{'=> '}</span>
+        <span className={styles.ParenAndBrace}>{'{'}</span>
+      </h2>
+      <h2 className={styles.Heading}><span className={styles.ParenAndBrace}>{'}'}</span></h2>
+      <h2 className={`${styles.Heading} ${styles.Comment}`}>{'// Miscellaneous'}</h2>
     </Container>
   )
 

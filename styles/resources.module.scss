@@ -16,4 +16,27 @@
   // margin-left: -3rem;
   padding-left: 0.2rem;
   margin-left: clamp(-4rem, -3%, -1rem);
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: normal;
+}
+.Comment {
+  color: rgb(118, 201, 118);
+}
+.Declaration {
+  color: rgb(0, 153, 255);
+}
+.FnName {
+  color: black;
+}
+.Variable {
+  color: black;
+}
+.ParenAndBrace {
+  color: rgb(0, 153, 255);
+}
+.Assignment {
+  color: black;
+}
+.Arrow {
+  color: rgb(0, 153, 255);
 }

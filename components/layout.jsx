@@ -51,7 +51,7 @@ export default function Layout(props) {
   const [email, setEmail] = useState('');
   const [emailbody, setEmailbody] = useState('');
   useEffect(() => {
-    document.body.className = 'scollBarOne'
+    document.body.className = 'scrollBarOne'
   }, [])
   useEffect(() => {
     const handleScroll = () => {
@@ -65,7 +65,7 @@ export default function Layout(props) {
       setScrollPos(position);
       if (Math.random() < .5) {
         setSnakeToggle(!snakeToggle)
-        document.body.className = snakeToggle ? 'scollBarOne' : 'scrollBarTwo'
+        document.body.className = snakeToggle ? 'scrollBarOne' : 'scrollBarTwo'
       }
 
     }
@@ -115,8 +115,8 @@ export default function Layout(props) {
 
   const testPath = (route) => {
     const rgx = new RegExp(
-      `^\/${route}?(?![a-z])(?![0-9])`//, // regex to check the begining of the path
-      //'i' //? do we actually want it to not be case sensitive?
+      `^\/${route}?(?![a-z])(?![0-9])`, // regex to check the begining of the path
+      'i'
     )
     return rgx.test(asPath)
   }
@@ -181,6 +181,15 @@ export default function Layout(props) {
                 active={testPath('resources')}
               >
                 Resources
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                className='text-center'
+                href="/aboutus"
+                active={testPath('aboutus')}
+              >
+                About Us
               </NavLink>
             </NavItem>
             <NavItem>

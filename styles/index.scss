@@ -150,6 +150,7 @@ nav {
 
 .main-content {
   margin-top: 112px;
+  min-height: 100vh;
 }
 
 nav {
@@ -157,11 +158,11 @@ nav {
 }
 
 .nav-scroll-in {
-  transform: translateY(0); // 56 is the hight of the nav
+  transform: translateY(0); // 56 is the height of the nav
 }
 
 .nav-scroll-out {
-  transform: translateY(-56px); // 56 is the hight of the nav
+  transform: translateY(-56px); // 56 is the height of the nav
 }
 
 .cntr-footer {
@@ -416,7 +417,7 @@ html {
       background-size: 20px 60px;
     }
  
-    &.scollBarOne::-webkit-scrollbar-thumb {
+    &.scrollBarOne::-webkit-scrollbar-thumb {
       background-position: 8px 30px, 12px 0;
     }
 
@@ -428,4 +429,16 @@ html {
   // scrollbar firefox
   scrollbar-width: normal;
   scrollbar-color: var(--color-three) var(--color-five);
+}
+
+// Hero
+#HeroBg {
+  position: fixed;
+  // margin-top: -100px !important;
+}
+
+#HeroImg {
+  position: absolute;
+  top: 0;
+  object-fit: contain;
 }

@@ -53,19 +53,31 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>the home page</title>
+        <title>Collaboracode - Community, Collaboration, Code</title>
       </Head>
 
+      <Image
+        id='HeroBg'
+        src='/winter.jpg'
+        alt='Collaboracode - Community, Collaboration, Code'
+        width="100%"
+        height="100%"
+        layout="responsive"
+        fill
+        className='next-image'
+      />
+      <Image
+        id='HeroImg'
+        src="/puzzle_render-1.webp"
+        alt="Collaboracode - Community, Collaboration, Code"
+        width="100%"
+        height="100%"
+        layout="responsive"
+        fill
+      />
       <Container className="lg-container" >
         <Row className='row'>
-          <Col className='' md="7">
-            <Image
-              src="/puzzled.png"
-              alt="Picture "
-              width="2560"
-              height="1440"
-              layout="responsive"
-            />
+          <Col className='' md="12">
           </Col>
           <Col md="5">
             <ul>
