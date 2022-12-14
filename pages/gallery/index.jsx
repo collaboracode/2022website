@@ -4,7 +4,7 @@ import styles from "../../styles/gallery.module.scss"
 export default function Gallery({ Component, pageProps, projects }) {
 
   return (
-    <>
+    <div className='page-container'>
       <Row>
         <Col>
           <h1 className="text-center mb-5">Hello, and welcome to our project gallery</h1>
@@ -49,7 +49,7 @@ export default function Gallery({ Component, pageProps, projects }) {
         </Col>
 
       </Row>
-    </>
+    </div>
   )
 }
 
