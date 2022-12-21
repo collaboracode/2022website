@@ -15,6 +15,7 @@ import {
   CardBody
 } from 'reactstrap'
 
+import styles from '../styles/home.module.scss'
 //? should this be moved into the slider component?
 const slides = [
   {
@@ -68,9 +69,13 @@ export default function Home() {
       </Head>
 
       <Container className='lg-container mt-5 main-text'>
-        <div id='HeroContainer'>
+        <div
+          // id='HeroContainer'
+          className={styles.HeroContainer}
+        >
           <Image
-            id='HeroBg'
+            // id='HeroBg'
+            className={`${styles.HeroBg} next-image`}
             src='/winter.jpg'
             alt='Collaboracode - Community, Collaboration, Code'
             // width="100%"
@@ -78,10 +83,10 @@ export default function Home() {
             // layout="responsive"
             layout="raw"
             fill
-            className='next-image'
           />
           <Image
-            id='HeroImg'
+            // id='HeroImg'
+            className={styles.HeroImg}
             src="/puzzle_render-1.webp"
             alt="Collaboracode - Community, Collaboration, Code"
             // width="500"

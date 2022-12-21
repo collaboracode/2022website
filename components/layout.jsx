@@ -74,26 +74,9 @@ export default function Layout(props) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [scrollPos]);
 
-  // useEffect(() => {
-  //   const position = window.pageYOffset;
-  //   console.log(position, prevPos)
-  //   setNavFixed(position > 60 && position > prevPos ? 'top' : '');
-  // }, [prevPos]);
-
   const toggleNav = () => setNavOpen(!navOpen);
   const mailingToggle = () => setMailingModal(!mailingModal);
   const contactToggle = () => setContactModal(!contactModal);
-
-  // const handleScroll = (e) => {
-  //   const position = window.scrollY;
-
-  //   if (currPos === 0) {
-  //     setCurrPos(position);
-  //   } else {
-  //     setPrevPos(currPos);
-  //     setCurrPos(position);
-  //   }
-  // }
 
   const handleChange = (e) => {
     let field = e.target.name;  // can also be e.target.id if id & name are the same for the input
@@ -120,53 +103,8 @@ export default function Layout(props) {
     )
     return rgx.test(asPath)
   }
-
-  // const CustomNavbar = forwardRef((props, ref) => {
-  //   const navbarRef = useRef(null);
-
-  //   useImperativeHandle(ref, () => ({
-  //     scrollTop: navbarRef.current.scrollTop
-  //   }));
-
-  //   return <Navbar color='dark' dark expand='md' fixed={ navFixed } onScroll={ handleScroll } ref={ navbarRef }>{ props.children }</Navbar>;
-  // })
-
   return (
     <>
-      {/* <nav>
-        <Nav
-          card
-          pills
-          className="justify-content-center ml-0 mr-0 mt-1"
-        >
-          <NavItem
-            className='logo'
-          >
-            <NavLink
-              href="/"
-            >
-              CollaboraCode
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink
-              href="/"
-              active={asPath === "/"}
-            >
-              Home
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink
-              href="/resources"
-              active={testPath('resources')}
-            >
-              Resources
-            </NavLink>
-          </NavItem>
-        </Nav>
-      </nav> */}
-
       <Navbar expand='md' fixed={'top'}
         dark={true} 
         className={`${navClassName}`}>
@@ -242,35 +180,26 @@ export default function Layout(props) {
           </ModalFooter>
         </Modal>
         <Container>
-          <Row>
+          <Row className='mb-0 mt-1'>
             <Col sm="12" md="4">
-              <ul className="list-unstyled">
-                <li><strong>Register to Join us on Meetup</strong></li>
+              <ul className="list-unstyled text-center">
+                <li className='footerSectionHeading'><strong>Register to Join us on Meetup</strong></li>
                 <li><Link href="https://www.meetup.com/collaboracode-sanantonio-tx/" passHref><a target="_blank">San Antonio, TX</a></Link></li>
                 <li><Link href="https://www.meetup.com/collaboracode-danville-ca/" passHref><a target="_blank">Danville, CA</a></Link></li>
               </ul>
             </Col>
             <Col sm="12" md="4"></Col>
             <Col sm="12" md="4">
-              <ul className="list-unstyled">
+              <ul className="list-unstyled text-center">
                 <li><Link href="privacy">Privacy Policy</Link></li>
                 <li><a href="#" className='disabled' onClick={mailingToggle}>Mailing List</a></li>
                 <li><a href="#" onClick={contactToggle}>Contact Us</a></li>
               </ul>
             </Col>
           </Row>
-          <Row>
-            <Col>
-              {/* <a
-          href="https://vercel.com?filter=next.js&utm_source=github&utm_medium=example&utm_campaign=next-example"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="sml-logo" />
-        </a> */}<p className='powered'>Powered by Collaboration</p>
-            </Col>
-          </Row>
+        <div className='thinRow'>
+          <p className='powered'>Powered by Collaboration</p>
+        </div>
         </Container>
       </footer>
     </>

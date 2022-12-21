@@ -1,0 +1,141 @@
+body {
+  color: var(--color-five);
+}
+
+nav {
+  background-color: var(--color-five);
+  // z-index: 9001;
+}
+
+.navbar-toggler {
+  z-index: 9002;
+  transition: all 250ms ease-in-out;
+  outline: 1px solid transparent;
+
+  //! why is it seen as not visible!!!
+  //? focus seems to work on tab to, but not on click?!?!
+  &:focus:not(:focus-visible),
+  &:focus,
+  &:active,
+  &:focus-visible {
+    outline: 2px solid white;
+  }
+
+}
+
+.nav-link.active {
+  color: var(--color-three) !important;
+}
+
+.nav-link:not(.active) {
+  color: var(--color-two) !important;
+}
+
+.nav-link:not(.active):hover {
+  color: #fff !important;
+}
+
+.nav-scroll-in {
+  transform: translateY(0); // 56 is the height of the nav
+}
+
+.nav-scroll-out {
+  transform: translateY(-56px); // 56 is the height of the nav
+}
+
+.cntr-footer {
+  // height: 80px;
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid var(--color-five);
+  background-color: #404040;
+  z-index: 9001;
+  opacity: 1;
+
+  .thinRow {
+    margin: 0;
+    color: white;
+    height: fit-content;
+  }
+
+  .footerSectionHeading {
+    color: var(--color-three)
+  }
+}
+
+nav {
+  transition: 500ms ease-in-out;
+}
+
+.main-content {
+  min-height: 100vh;
+}
+
+.row {
+  // min-height: 8rem;
+  margin: 2rem 0;
+}
+
+.powered {
+  text-align: center;
+}
+
+.sml-logo {
+  height: 1em;
+  margin-left: 10px;
+}
+
+.link {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.logo {
+  position: absolute;
+  left: 1rem;
+  background-color: var(--color-one);
+
+  a {
+    color: white;
+  }
+}
+
+// scrollbar styles
+html {
+
+
+  body {
+    &::-webkit-scrollbar {
+      width: 20px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--color-five);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-image:
+        radial-gradient(10px 30px at left, var(--color-three) 100%, #0000),
+        radial-gradient(10px 30px at right, var(--color-three) 100%, #0000);
+      // background-position: 25px 25px, 26px 0;
+      //  background-position: 25px 0px, 26px 25px;
+      background-size: 20px 60px;
+    }
+
+    &.scrollBarOne::-webkit-scrollbar-thumb {
+      background-position: 8px 30px, 12px 0;
+    }
+
+    &.scrollBarTwo::-webkit-scrollbar-thumb {
+      background-position: 8px 0px, 12px 30px;
+    }
+  }
+
+  // scrollbar firefox
+  scrollbar-width: normal;
+  scrollbar-color: var(--color-three) var(--color-five);
+}
