@@ -46,7 +46,7 @@ const getShape = () => {
     'radius-two',
     'radius-three'
   ]
-  return borderShapes[Math.floor(Math.random() * 3)]
+  return borderShapes[Math.floor(Math.random() * borderShapes.length)]
 }
 export default function Home() {
 
@@ -68,7 +68,6 @@ export default function Home() {
       </Head>
 
       <Container className='lg-container mt-5 main-text'>
-        
         <div id='HeroContainer'>
           <Image
             id='HeroBg'
@@ -92,12 +91,10 @@ export default function Home() {
             fill
           />
         </div>
-
       </Container>
 
-      <Container className="lg-container z-10 mt-5" >
-
-        <Row className={`row ${getShape()} bg-about`}>
+      <Container tag={"article"} className="lg-container z-10 mt-5" >
+        <Row tag={"section"} className={`row ${getShape()} bg-about`}>
           <Col sm="12" md="6" lg="6">
             <h3>What we're about</h3>
             <p>This is an online group for people of all levels of experience. We are about getting together and creating small projects as a team in HTML/CSS/Javascript.
@@ -116,7 +113,7 @@ export default function Home() {
           </Col>
         </Row>
 
-        <Row className={`d-flex justify-content-center row mt-5 mb-5`}>
+        <Row tag={"section"} className={`d-flex justify-content-center row mt-5 mb-5`}>
           <Col sm="12" md="12" lg="8" className={`${getShape()} bg-featured d-flex justify-content-center align-content-center`}>
             <h4>Please join us each week on Tuesday via Meetup</h4>
             <Row>
@@ -134,7 +131,7 @@ export default function Home() {
           </Col>
         </Row>
 
-        <Row>
+        <Row tag={"section"}>
           <Col className={`bg-featured featured ${getShape()}`} sm="12" md="12">
             <Row className='row justify-content-center text-center'>
               <Col md='8'>

@@ -66,18 +66,9 @@
   border-radius: 30% 10% / 50% 20%;
 }
 
-.bg-featured {
-  border: 4px solid var(--color-three);
-  padding: 4rem;
-  background-color: #99C24D60;
-  // background-color: #1982FC; iMessage Color text bubble
-  
-}
-.bg-about {
-  border: 4px solid white;
-  padding: 4rem;
-  background-color: #33333360;
-}
+
+
+
 // resource page
 .resource {
   border: 4px solid var(--color-three);
@@ -140,8 +131,28 @@ body {
 
 nav {
   background-color: var(--color-five);
-  z-index: 9001;
+  // z-index: 9001;
 }
+
+.navbar-toggler {
+  z-index: 9002;
+  transition: all 250ms ease-in-out;
+  outline: 1px solid transparent;
+  //! why is it seen as not visible!!!
+  //? focus seems to work on tab to, but not on click?!?!
+  &:focus:not(:focus-visible), 
+  &:focus,
+  &:active,
+  &:focus-visible{
+    outline: 2px solid white;
+  }
+
+}
+
+// .navbar-toggler-icon {
+//   // z-index: 9002;
+//   color: white;
+// }
 
 .nav-link.active {
   color: var(--color-three) !important;
@@ -219,191 +230,19 @@ nav {
   margin-right: auto;
 }
 
-/* Carousel
- related css
-*/
-// .slider-container {
-//   padding: 8rem 0;
-//   width: 80vw;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   overflow: hidden;
+.bg-featured {
+  border: 4px solid var(--color-three);
+  padding: 4rem;
+  background-color: #99c24db6;
+  // background-color: #1982FC; iMessage Color text bubble
+  backdrop-filter: blur(5px);
+}
 
-//   *,
-//   *::before,
-//   *::after {
-//     box-sizing: border-box;
-//     position: relative;
-//   }
-// }
-
-// .slides {
-//   display: grid;
-
-//   >.slide {
-//     grid-area: 1 / -1;
-//   }
-
-//   >button {
-
-//     appearance: none;
-//     background: transparent;
-//     border: none;
-//     color: white;
-//     position: absolute;
-//     font-size: 5rem;
-//     width: 5rem;
-//     height: 5rem;
-//     top: 30%;
-//     transition: opacity 0.3s;
-//     opacity: 0.7;
-//     z-index: 10;
-
-//     text-shadow:
-//       -1px -1px 0 #000,
-//       1px -1px 0 #000,
-//       -1px 1px 0 #000,
-//       1px 1px 0 #000;
-
-//     @supports (-webkit-text-stroke: 1px black) {
-//       -webkit-text-stroke: 2px black;
-//       -webkit-text-fill-color: white;
-//       text-shadow: none;
-//     }
-
-//     &:hover {
-//       opacity: 1;
-//     }
-
-//     &:focus {
-//       outline: none;
-//     }
-
-//     &:first-child {
-//       left: - 40%;
-//     }
-
-//     &:last-child {
-//       right: -40%;
-//     }
-//   }
-// }
-
-// .slide {
-//   transform-style: preserve-3d;
-//   // border: solid 1px red;
-
-//   &[data-active] {
-//     .slideContent>* {
-//       // transform: none;
-//       opacity: 1;
-//     }
-//   }
-// }
-
-// .slideContent {
-//   width: 40vw;
-//   height: calc(40vw / 1.77);
-//   background-size: contain;
-//   background-position: center center;
-//   background-repeat: no-repeat;
-//   transition: transform 0.5s ease-in-out;
-//   opacity: 1.0;
-
-//   display: grid;
-//   align-content: center;
-
-//   transform-style: preserve-3d;
-//   transform: perspective(1000px) translateX(calc(100% * var(--offset))) rotateY(calc(-45deg * var(--dir)));
-// }
-
-// .slideContentInner {
-//   transform-style: preserve-3d;
-//   transform: translateZ(2rem);
-//   transition: opacity 0.3s linear;
-//   // text-shadow: 0 0.1rem 1rem #000;
-//   opacity: 0;
-
-//   //? this also makes the text more readable, but I prefer the look of stoke, what y'all think?
-//   color: white;
-//   text-shadow:
-//     -1px -1px 0 #000,
-//     1px -1px 0 #000,
-//     -1px 1px 0 #000,
-//     1px 1px 0 #000;
-
-//   @supports (-webkit-text-stroke: 1px black) {
-//     -webkit-text-stroke: 1px black;
-//     -webkit-text-fill-color: white;
-//     text-shadow: none;
-//   }
-
-//   .slideSubtitle,
-//   .slideTitle {
-//     font-size: 2rem;
-//     font-weight: 700;
-//     letter-spacing: 0.2ch;
-//     // text-transform: uppercase;
-//     margin: 0;
-//   }
-
-//   .slideSubtitle::before {
-//     content: "— ";
-//   }
-
-//   .slideDescription {
-//     margin: 0;
-//     font-size: 1rem;
-//     letter-spacing: 0.2ch;
-
-//     // for use with the stroke above
-//     @supports (-webkit-text-stroke: 1px black) {
-//       font-weight: 700;
-//       font-size: 1.2rem;
-//     }
-//   }
-// }
-
-// .slideBackground {
-//   position: fixed;
-//   top: 0;
-//   left: -10%;
-//   right: -10%;
-//   bottom: 0;
-//   background-size: cover;
-//   background-position: center center;
-//   z-index: -1;
-//   opacity: 0;
-//   transition: opacity 0.3s linear, transform 0.3s ease-in-out;
-//   pointer-events: none;
-
-//   transform: translateX(calc(10% * var(--dir)));
-// }
-
-// .slide[data-active] {
-//   z-index: 2;
-//   pointer-events: auto;
-
-//   .slideContentInner {
-//     opacity: 1;
-//   }
-
-//   .slideContent {
-//     border: 1px solid var(--color-five);
-
-//     --x: calc(var(--px) - 0.5);
-//     --y: calc(var(--py) - 0.5);
-//     opacity: 1;
-
-//     transform: perspective(1000px);
-
-//     &:hover {
-//       transition: none;
-//       transform: perspective(1000px) rotateY(calc(var(--x) * 45deg)) rotateX(calc(var(--y) * -45deg));
-//     }
-//   }
-// }
+.bg-about {
+  border: 4px solid white;
+  padding: 4rem;
+  background-color: #33333360;
+}
 
 // scrollbar styles
 html {
@@ -426,7 +265,7 @@ html {
       //  background-position: 25px 0px, 26px 25px;
       background-size: 20px 60px;
     }
- 
+
     &.scrollBarOne::-webkit-scrollbar-thumb {
       background-position: 8px 30px, 12px 0;
     }
@@ -440,10 +279,12 @@ html {
   scrollbar-width: normal;
   scrollbar-color: var(--color-three) var(--color-five);
 }
+
 .z-10 {
   z-index: 1000 !important;
   position: relative;
 }
+
 // Hero
 #HeroBg {
   position: fixed !important;
@@ -461,10 +302,12 @@ html {
   object-fit: contain !important;
   z-index: 2 !important;
 }
+
 #HeroContainer {
   // width: 800px;
   border: 1px solid red;
 }
+
 .main-text {
   background-color: white;
   opacity: .45;

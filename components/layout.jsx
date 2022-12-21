@@ -168,12 +168,21 @@ export default function Layout(props) {
       </nav> */}
 
       <Navbar expand='md' fixed={'top'}
-        // color='dark' dark 
+        dark={true} 
         className={`${navClassName}`}>
         <NavbarBrand href='/'>Collaboracode</NavbarBrand>
         <NavbarToggler onClick={toggleNav} />
         <Collapse isOpen={navOpen} navbar>
           <Nav className='m-auto' navbar>
+            <NavItem>
+              <NavLink
+                className='text-center'
+                href="/"
+                active={testPath('/')}
+              >
+                Home
+              </NavLink>
+            </NavItem>
             <NavItem>
               <NavLink
                 className='text-center'
@@ -198,12 +207,12 @@ export default function Layout(props) {
                 href="/gallery"
                 active={testPath('gallery')}
               >
-                Gallery
+                Project Gallery
               </NavLink>
             </NavItem>
           </Nav>
         </Collapse>
-      </Navbar>
+      </Navbar> 
 
       {/* could make this an id selector */}
       <div className='main-content'>{children}</div>
