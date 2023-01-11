@@ -102,9 +102,11 @@
 }
 
 .bg-about {
-  border: 4px solid white;
+  border: 4px solid #333333b6 ;
   padding: 4rem;
-  background-color: #33333360;
+  color: #ddd;
+  background-color: #333333b6;
+  backdrop-filter: blur(5px);
 }
 
 .main-text {

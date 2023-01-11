@@ -61,7 +61,8 @@ export default function Home() {
   // useEffect(() => {
   //   setBoarderShape(borderShapes[Math.floor(Math.random() * 3)])
   // }, [])
-
+  
+  
   return (
     <>
       <Head>
@@ -99,15 +100,15 @@ export default function Home() {
       </Container>
 
       <Container tag={"article"} className="lg-container z-10 mt-5" >
-        <Row tag={"section"} className={`row ${getShape()} bg-about`}>
-          <Col sm="12" md="6" lg="6">
-            <h3>What we're about</h3>
+        <Row tag={"section"} className={` ${getShape()} bg-about`}>
+          <Col sm="12" md="8" lg="8" >
+            <h3 className='text-center'>What we're about</h3>
             <p>This is an online group for people of all levels of experience. We are about getting together and creating small projects as a team in HTML/CSS/Javascript.
               Looking for anyone who is interested in gaining tangible experience working together on a software project.
               If you are involved in a bootcamp, receiving a technological education at a college, self-learning, or would like to give back to your local tech community, we look forward to meeting you and making some fun projects.
             </p>
           </Col>
-          <Col sm="12" md="6" lg="6" className='d-flex justify-content-start align-items-center'>
+          <Col sm="12" md="4" lg="4" className='d-flex justify-content-start align-items-center'>
             <ul>
               <li>Collaborate</li>
               <li>Learn</li>
@@ -118,27 +119,23 @@ export default function Home() {
           </Col>
         </Row>
 
-        <Row tag={"section"} className={`d-flex justify-content-center row mt-5 mb-5`}>
-          <Col sm="12" md="12" lg="8" className={`${getShape()} bg-featured d-flex justify-content-center align-content-center`}>
+        <Row tag={"section"} className={`d-flex justify-content-center mt-5 mb-5`}>
+          <Col sm="12" md="12" lg="8" className={`${getShape()} bg-featured d-flex flex-column justify-content-center align-content-center text-center`}>
             <h4>Please join us each week on Tuesday via Meetup</h4>
-            <Row>
-              <Col sm="12" md="6">
-                <Button className="bg-color-four text-white hover-bg-color-five" onClick={() => {
-                  window.open("https://www.meetup.com/collaboracode-sanantonio-tx/", '_blank')
-                }}>San Antonio, TX</Button>
-              </Col>
-              <Col sm="12" md="6">
-                <Button className="bg-color-four text-white" onClick={() => {
-                  window.open("https://www.meetup.com/collaboracode-danville-ca/", '_blank')
-                }}>Danville, CA</Button>
-              </Col>
-            </Row>
+            {/* <Row>
+              <Col sm="12" md="6"> */}
+            <a className="btn bg-color-four text-white hover-bg-color-five w-50 mt-2 align-self-center" href='https://www.meetup.com/collaboracode-sanantonio-tx/' target='_blank'>San Antonio, TX</a>
+            {/* </Col>
+              <Col sm="12" md="6"> */}
+            <a className='btn bg-color-four text-white hover-bg-color-five w-50 mt-2 align-self-center' href='https://www.meetup.com/collaboracode-danville-ca/' target='_blank'>Danville, CA</a>
+            {/* </Col>
+            </Row> */}
           </Col>
         </Row>
 
         <Row tag={"section"}>
           <Col className={`bg-featured featured ${getShape()}`} sm="12" md="12">
-            <Row className='row justify-content-center text-center'>
+            <Row className='justify-content-center text-center'>
               <Col md='8'>
                 <h2>Here are some examples of things we've built</h2>
                 <ul className='text-left'>
