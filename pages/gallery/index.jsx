@@ -1,55 +1,64 @@
-import { Col, Row, Card, CardBody, CardSubtitle, CardText, CardTitle, CardFooter } from "reactstrap"
+import { Col, Row, Card, CardBody, CardSubtitle, CardText, CardTitle, CardFooter, Container } from "reactstrap"
 import Image from 'next/image'
 import styles from "../../styles/gallery.module.scss"
+import Background from "../../components/background"
 export default function Gallery({ Component, pageProps, projects }) {
 
   return (
-    <div className='page-container'>
-      <Row>
-        <Col>
-          <h1 className="text-center mb-5">Hello, and welcome to our project gallery</h1>
-          {projects ? projects.map((project, i) => {
-            const {
-              id,
-              mainImage,
-              title,
-              subtitle,
-              description,
-              text,
-              gitHubLink
-            } = project
-            return (
-              <Row key={id} sm={1} className={`justify-content-center mt-5 mb-5`}>
-                <Col md={6} className={`mt-5 mb-5`}>
-                  <Card className={`${styles.card}`}>
-                    {/* //todo make this an array of images, and make it a bootstrap carousel */}
-                    {/* //todo add onclick to go to page dedicated to the project with list of collaborators for the project */}
-                    {mainImage?.link && mainImage?.width && mainImage?.height && <Image
-                      src={mainImage.link}
-                      alt="Picture "
-                      width={mainImage.width}
-                      height={mainImage.height}
-                      layout="responsive"
-                    />}
-                    <CardBody>
-                      {title && <CardTitle tag={'h2'}>{title}</CardTitle>}
-                      {subtitle && <CardSubtitle tag={'h4'} className={`mb-2`}>{subtitle}</CardSubtitle>}
-                      {description && <CardText tag={'p'} className={styles.description}>{description}</CardText>}
-                      {text && <CardText className={`${styles.cardText}`}>{text}</CardText>} {/*//! this is an example of how to use the styles in the module */}
-                    </CardBody>
-                    <CardFooter>
-                      {/* //todo make an object keys are titles, and values are links */}
-                      {gitHubLink && <a href={gitHubLink} target={'_blank'}>GitHub</a>}
-                    </CardFooter>
-                  </Card>
-                </Col>
-              </Row>
-            )
-          }) : null}
-        </Col>
+    <>
+      <Background />
+      {/* <div className='page-container'> */}
+        <Container>
+          <Row>
+            <Col>
+              <span className="">
 
-      </Row>
-    </div>
+                <h1 className="text-center mb-5 bg-about">Hello, and welcome to our project gallery</h1>
+              </span>
+              {projects ? projects.map((project, i) => {
+                const {
+                  id,
+                  mainImage,
+                  title,
+                  subtitle,
+                  description,
+                  text,
+                  gitHubLink
+                } = project
+                return (
+                  <Row key={id} sm={12} className={`justify-content-center mt-5 mb-5`}>
+                    <Col sm={12} md={10} lg={8} className={`mt-5 mb-5`}>
+                      <Card className={`${styles.card}`}>
+                        {/* //todo make this an array of images, and make it a bootstrap carousel */}
+                        {/* //todo add onclick to go to page dedicated to the project with list of collaborators for the project */}
+                        {mainImage?.link && mainImage?.width && mainImage?.height && <Image
+                          src={mainImage.link}
+                          alt="Picture "
+                          width={mainImage.width}
+                          height={mainImage.height}
+                          layout="responsive"
+                        />}
+                        <CardBody className={styles.cardBody}>
+                          {title && <CardTitle tag={'h2'}>{title}</CardTitle>}
+                          {subtitle && <CardSubtitle tag={'h4'} className={`mb-2`}>{subtitle}</CardSubtitle>}
+                          {description && <CardText tag={'p'} className={styles.description}>{description}</CardText>}
+                          {text && <CardText className={`${styles.cardText}`}>{text}</CardText>} {/*//! this is an example of how to use the styles in the module */}
+                        </CardBody>
+                        <CardFooter>
+                          {/* //todo make an object keys are titles, and values are links */}
+                          {gitHubLink && <a href={gitHubLink} target={'_blank'}>GitHub</a>}
+                        </CardFooter>
+                      </Card>
+                    </Col>
+                  </Row>
+                )
+              }) : null}
+            </Col>
+
+          </Row>
+        </Container>
+      {/* </div> */}
+    </>
   )
 }
 

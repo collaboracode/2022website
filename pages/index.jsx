@@ -15,7 +15,9 @@ import {
   CardBody
 } from 'reactstrap'
 
-import styles from '../styles/home.module.scss'
+import getShape from '../components/getShape'
+import Background from '../components/background'
+// import styles from '../styles/home.module.scss'
 //? should this be moved into the slider component?
 const slides = [
   {
@@ -41,14 +43,14 @@ const slides = [
   },
 
 ];
-const getShape = () => {
-  const borderShapes = [ // class names
-    'radius-one',
-    'radius-two',
-    'radius-three'
-  ]
-  return borderShapes[Math.floor(Math.random() * borderShapes.length)]
-}
+// const getShape = () => {
+//   const borderShapes = [ // class names
+//     'radius-one',
+//     'radius-two',
+//     'radius-three'
+//   ]
+//   return borderShapes[Math.floor(Math.random() * borderShapes.length)]
+// }
 export default function Home() {
 
   //* does not seem to need to be in state
@@ -61,15 +63,15 @@ export default function Home() {
   // useEffect(() => {
   //   setBoarderShape(borderShapes[Math.floor(Math.random() * 3)])
   // }, [])
-  
-  
+
+
   return (
     <>
       <Head>
         <title>Collaboracode - Community, Collaboration, Code</title>
       </Head>
-
-      <Container className='lg-container mt-5 main-text'>
+      <Background />
+      {/* <Container className='lg-container mt-5 main-text'>
         <div
           // id='HeroContainer'
           className={styles.HeroContainer}
@@ -97,9 +99,9 @@ export default function Home() {
             fill
           />
         </div>
-      </Container>
+      </Container> */}
 
-      <Container tag={"article"} className="lg-container z-10 mt-5" >
+      <Container tag={"article"} className="lg-container mt-5" >
         <Row tag={"section"} className={` ${getShape()} bg-about`}>
           <Col sm="12" md="8" lg="8" >
             <h3 className='text-center'>What we're about</h3>

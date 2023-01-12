@@ -32,6 +32,8 @@ import {
 
 import { NavbarHeight } from '../utils/Statics';
 
+import Background from './background';
+
 export default function Layout(props) {
   const { children } = props;
   const { asPath } = useRouter()
@@ -153,8 +155,8 @@ export default function Layout(props) {
       </Navbar> 
 
       {/* could make this an id selector */}
-      <div className='main-content'>{children}</div>
-
+      <div className='main-content z-10'>{children}</div>
+      {/* <Background/> */}
       <footer className="cntr-footer">
         <Modal isOpen={mailingModal} toggle={mailingToggle}>
           <ModalHeader>Mailing List Signup</ModalHeader>
