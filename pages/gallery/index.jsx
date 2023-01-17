@@ -27,7 +27,7 @@ export default function Gallery({ Component, pageProps, projects }) {
                 } = project
                 return (
                   <Row key={id} sm={12} className={`justify-content-center mt-5 mb-5`}>
-                    <Col sm={12} md={10} lg={8} className={`mt-5 mb-5`}>
+                    <Col sm={12} className={`mt-5 mb-5`}>
                       <Card className={`${styles.card}`}>
                         {/* //todo make this an array of images, and make it a bootstrap carousel */}
                         {/* //todo add onclick to go to page dedicated to the project with list of collaborators for the project */}
