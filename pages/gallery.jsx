@@ -1,7 +1,7 @@
 import { Col, Row, Card, CardBody, CardSubtitle, CardText, CardTitle, CardFooter, Container } from "reactstrap"
 import Image from 'next/image'
-import styles from "../../styles/gallery.module.scss"
-import Background from "../../components/background"
+import styles from "../styles/gallery.module.scss"
+import Background from "../components/background"
 export default function Gallery({ Component, pageProps, projects }) {
 
   return (
@@ -71,7 +71,7 @@ export async function getStaticProps() {
       subtitle: "-- React",
       description: "tic tac toe, with a twist... or rather a shift",
       text: 'This project uses inline styles using objects, which makes programmatically setting styles a little easier',
-      gitHubLink: '#', // make array, and loop through them
+      gitHubLink: 'https://github.com/S0UPernova/tic-tac-toe',
     },
     {
       id: 2,
@@ -80,7 +80,7 @@ export async function getStaticProps() {
       subtitle: "-- React/Express",
       description: "Meant to allow users to vote on their favorite Houseguests",
       text: 'React frontend with Express NodeJs backend with mongoDB',
-      gitHubLink: '#',
+      gitHubLink: 'https://github.com/collaboracode/bigbrotherapp',
     },
     {
       id: 3,
@@ -89,7 +89,7 @@ export async function getStaticProps() {
       subtitle: "-- JavaScript",
       description: "Hangman game in JavaScript",
       text: "A simple javascript game of hangman, random word pulled from Random Word API: https://random-word-api.herokuapp.com/home",
-      gitHubLink: '#',
+      gitHubLink: 'https://github.com/collaboracode/hangman',
     }
   ]
   return {

@@ -1,15 +1,19 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { Container } from 'reactstrap'
+import { Container, Row } from 'reactstrap'
 
 export default function Privacy() {
-    return (
-      <>
-      <Container className='page-container mt-5 mb-5'>
+  return (
+    <>
+      <Container>
+        <Row sm={12}>
 
-      All your data are belong to us
+          <iframe className='mt-8 w-100 vh-75' id='privacy-policy' src='privacy-preview.html'></iframe>
+        </Row>
 
+
+        All your data are belong to us
       </Container>
-      </>
-    )
+    </>
+  )
 }

@@ -40,7 +40,9 @@ export default function Resources() {
             <CardText>
               Like riding a bicycle, perfecting this stance requires grace, steadiness, and tight shorts
             </CardText>
-            <Button>
+            <Button
+              
+            >
               Button
             </Button>
           </CardBody>

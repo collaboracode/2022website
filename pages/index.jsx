@@ -17,7 +17,7 @@ import {
 
 import getShape from '../components/getShape'
 import Background from '../components/background'
-// import styles from '../styles/home.module.scss'
+import styles from '../styles/home.module.scss'
 //? should this be moved into the slider component?
 const slides = [
   {
@@ -154,7 +154,12 @@ export default function Home() {
 
       {/* I moved this out since it is a centerpiece kind of element so I think it should get to push past the margins
           that the rest of the page/pages follow, which I think enhances the effect*/}
-      <Row sm={12} className={`w-100 d-flex justify-content-center`}>
+      <Container className={styles.featured}>
+        <Row sm={12} className={`bg-about d-flex justify-content-center`}>
+          <h2>Our featured projects</h2>
+        </Row>
+      </Container>
+      <Row sm={12} className={`w-100 d-flex justify-content-center `}>
         <Col sm={12} className='d-flex justify-content-center'>
           <Slider slides={slides} />
         </Col>
