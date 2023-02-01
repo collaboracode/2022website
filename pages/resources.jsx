@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import { Button, ButtonGroup, Media, Card, CardBody, CardGroup, CardTitle, CardSubtitle, CardText, CardImg, Container } from 'reactstrap';
 // import Image from 'next/image'
 import styles from '../styles/resources.module.scss'
@@ -40,11 +41,11 @@ export default function Resources() {
             <CardText>
               Like riding a bicycle, perfecting this stance requires grace, steadiness, and tight shorts
             </CardText>
-            <Button
+            <Link href={'#'}
               
             >
               Button
-            </Button>
+            </Link>
           </CardBody>
         </Card>
         <Card className={styles.Card}>
@@ -68,9 +69,9 @@ export default function Resources() {
             <CardText>
               The simple stance reflects one of life's fiercest--and greatest--sports: channel surfing
             </CardText>
-            <Button>
+            <Link href={'#'}>
               Button
-            </Button>
+            </Link>
           </CardBody>
         </Card>
         <Card className={styles.Card}>
@@ -94,9 +95,9 @@ export default function Resources() {
             <CardText>
               To crush is also to create, and from squashing comes spice. Stay vigilant. The battle for seconds is always sudden and fierce
             </CardText>
-            <Button>
+            <Link href={'#'}>
               Button
-            </Button>
+            </Link>
           </CardBody>
         </Card>
       </CardGroup>
