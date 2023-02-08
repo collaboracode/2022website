@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react'
 import styles from '../styles/slider.module.scss'
 // import { userAgent } from 'next/server'
-
+// todo give credit to OG creator of this.
 
 let theSlides = [];
 

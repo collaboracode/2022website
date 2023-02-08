@@ -158,9 +158,9 @@ export default function Layout(props) {
       <div className='main-content z-10'>{children}</div>
       {/* <Background/> */}
       <footer className="cntr-footer">
-        <Modal isOpen={mailingModal} toggle={mailingToggle}>
+        <Modal isOpen={mailingModal} size='lg' toggle={mailingToggle}>
           <ModalHeader>Mailing List Signup</ModalHeader>
-          <ModalBody></ModalBody>
+          <ModalBody><iframe width={540} height={405} src="https://d82cd204.sibforms.com/serve/MUIEAMhd06PZmM9TKBBxGZ4OF0a8uQtsfgBk8c1CiGlO7qyGFRQguNedxsP5wxDG7l-_0O6FuS09nbun86o-GYseQi9PPdLZJORQYy3u4wnV9t5BMElW5Pjoj3nWFMfMjaWesLKaev50S7iPGG3Peij7oXgV7spphrVEPE-oWAPuEGxxMa0KgBNIGr9dFWM5YNJx728mZZrh230-" style={{ display: 'block', marginLeft: 'auto', margin: 'auto', maxWidth: '100%' }}></iframe></ModalBody>
         </Modal>
         <Modal isOpen={contactModal} toggle={contactToggle}>
           <ModalHeader>Contact</ModalHeader>
@@ -194,7 +194,7 @@ export default function Layout(props) {
             <Col sm="12" md="4">
               <ul className="list-unstyled text-center">
                 <li><Link href="privacy">Privacy Policy</Link></li>
-                <li><a href="#" className='disabled' onClick={mailingToggle}>Mailing List</a></li>
+                <li><a href="#" onClick={mailingToggle}>Mailing List</a></li>
                 <li><a href="#" onClick={contactToggle}>Contact Us</a></li>
               </ul>
             </Col>

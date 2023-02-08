@@ -71,7 +71,7 @@ export default function AboutUs() {
         <Row className={styles.members}>
           <Col sm={12} md={5} lg={3} className={`${getShape()} bg-featured`}>
             <h3>Matt Au</h3>
-            <p>I am software consultant that works in a few languages. I am a bot. I enjoy solving problems and sharing my knowledge with others.</p>
+            <p>I am software consultant that works in a few languages. I enjoy solving problems and sharing my knowledge with others.</p>
             <a className='mr-2' href="https://github.com/45acpUSA">GitHub</a>
             <a className='ml-2' href="https://www.linkedin.com/in/mau/">LinkedIn</a>
           </Col>
@@ -83,7 +83,7 @@ export default function AboutUs() {
           </Col>
           <Col sm={12} md={5} lg={3} className={`${getShape()} bg-featured`}>
             <h3>Derek Galen</h3>
-            <p>I do contract software development in a few languages. I to am a bot. Enjoying meeting new people, helping build things, solving problems that others are encountering.</p>
+            <p>I do contract software development in a few languages. Enjoying meeting new people, helping build things, solving problems that others are encountering.</p>
             <a className='mr-2' href="https://github.com/dgalen">GitHub</a>
             <a className='ml-2' href="https://www.linkedin.com/in/derek-galen">LinkedIn</a>
           </Col>
