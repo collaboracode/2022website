@@ -200,6 +200,7 @@ export default function Layout(props) {
             </Col>
           </Row>
         <div className='thinRow'>
+          <p className='powered'>Checkout our <a href='https://github.com/collaboracode'>GitHub</a></p>
           <p className='powered'>Powered by Collaboration</p>
         </div>
         </Container>
