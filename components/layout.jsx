@@ -32,7 +32,7 @@ import {
 
 import { NavbarHeight } from '../utils/Statics';
 
-import Background from './background';
+// import Background from './background';
 
 export default function Layout(props) {
   const { children } = props;
@@ -49,9 +49,10 @@ export default function Layout(props) {
 
   const [mailingModal, setMailingModal] = useState(false);
   const [contactModal, setContactModal] = useState(false);
+  
 
   const [email, setEmail] = useState('');
-  const [emailbody, setEmailbody] = useState('');
+  const [emailbody, setEmailBody] = useState('');
   useEffect(() => {
     document.body.className = 'scrollBarOne'
   }, [])
@@ -89,13 +90,13 @@ export default function Layout(props) {
         setEmail(val);
         break;
       case 'EMAILBODY':
-        setEmailbody(val);
+        setEmailBody(val);
         break;
     }
   }
 
   const handleClick = (e) => {
-
+    // handle Co
   }
 
   const testPath = (route) => {
@@ -159,11 +160,11 @@ export default function Layout(props) {
       {/* <Background/> */}
       <footer className="cntr-footer">
         <Modal isOpen={mailingModal} size='lg' toggle={mailingToggle}>
-          <ModalHeader>Mailing List Signup</ModalHeader>
+          <ModalHeader toggle={mailingToggle}>Mailing List Signup</ModalHeader>
           <ModalBody><iframe width={540} height={405} src="https://d82cd204.sibforms.com/serve/MUIEAMhd06PZmM9TKBBxGZ4OF0a8uQtsfgBk8c1CiGlO7qyGFRQguNedxsP5wxDG7l-_0O6FuS09nbun86o-GYseQi9PPdLZJORQYy3u4wnV9t5BMElW5Pjoj3nWFMfMjaWesLKaev50S7iPGG3Peij7oXgV7spphrVEPE-oWAPuEGxxMa0KgBNIGr9dFWM5YNJx728mZZrh230-" style={{ display: 'block', marginLeft: 'auto', margin: 'auto', maxWidth: '100%' }}></iframe></ModalBody>
         </Modal>
         <Modal isOpen={contactModal} toggle={contactToggle}>
-          <ModalHeader>Contact</ModalHeader>
+          <ModalHeader toggle={contactToggle}>Contact</ModalHeader>
           <ModalBody>
             <Form>
               <FormGroup>
