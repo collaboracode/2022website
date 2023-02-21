@@ -10,6 +10,8 @@ import {
   CardBody,
 } from 'reactstrap'
 import Image from 'next/image'
+import FluidContainer from '../components/fluidContainer'
+
 
 export default function Home() {
   return (
@@ -42,6 +44,9 @@ export default function Home() {
         <Row className='row'>
           <Col className='bg-primary' md="12">Featured Projects</Col>
         </Row>
+
+        <FluidContainer />
+
       </Container>
     </>
   )
