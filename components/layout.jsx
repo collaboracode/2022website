@@ -36,7 +36,7 @@ import { NavbarHeight } from '../utils/Statics';
 
 export default function Layout(props) {
   const { children } = props;
-  const { asPath } = useRouter()
+  const { asPath } = useRouter();
 
   const [navOpen, setNavOpen] = useState(false);
 
@@ -44,18 +44,19 @@ export default function Layout(props) {
   // const [navFixed, setNavFixed] = useState(''); 
 
   const [scrollPos, setScrollPos] = useState(0);
-  const [navClassName, setNavClassName] = useState('nav-scroll-in')
-  const [snakeToggle, setSnakeToggle] = useState(false)
+  const [navClassName, setNavClassName] = useState('nav-scroll-in');
+  const [snakeToggle, setSnakeToggle] = useState(false);
 
   const [mailingModal, setMailingModal] = useState(false);
   const [contactModal, setContactModal] = useState(false);
-  
 
   const [email, setEmail] = useState('');
   const [emailbody, setEmailBody] = useState('');
+  const [emailSubmitted, setEmailSubmitted] = useState(false);
+
   useEffect(() => {
     document.body.className = 'scrollBarOne'
-  }, [])
+  }, []);
   useEffect(() => {
     const handleScroll = () => {
       const position = window.pageYOffset;
@@ -96,16 +97,46 @@ export default function Layout(props) {
   }
 
   const handleClick = (e) => {
-    // handle Co
+    if (email && emailbody && isEmail(email)) {
+      setEmailSubmitted(true);
+
+      fetch("https://rynwv8e0q9.execute-api.us-west-2.amazonaws.com/v1/contactform", {
+        method: "POST",
+        body: JSON.stringify({ "email": email, "emailbody": emailbody }),
+        headers: {
+          "Accept": "application/json",
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => {
+          console.log(res);
+      })
+      .then(data => {
+        console.log(data)
+        setEmailSubmitted(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setEmailSubmitted(false);
+      })
+    }
   }
 
   const testPath = (route) => {
+    // regex can only be read when creating it, not after the fact ☜(ﾟヮﾟ☜)😁
     const rgx = new RegExp(
       `^\/${route}?(?![a-z])(?![0-9])`, // regex to check the begining of the path
       'i'
     )
     return rgx.test(asPath)
   }
+
+  const isEmail = (email) => {
+    // const emx = new RegExp(`^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$`, 'i');
+    const emx = /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/gm;
+    return emx.test(email);
+  }
+
   return (
     <>
       <Navbar expand='md' fixed={'top'}
@@ -179,7 +210,7 @@ export default function Layout(props) {
             </Form>
           </ModalBody>
           <ModalFooter>
-            <Button color='primary' onClick={handleClick}>Submit</Button>
+            <Button color='primary' disabled={ emailSubmitted } onClick={handleClick}>Submit</Button>
           </ModalFooter>
         </Modal>
         <Container>

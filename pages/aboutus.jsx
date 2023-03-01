@@ -94,7 +94,15 @@ export default function AboutUs() {
               and you can't know everything, but with enough determination you can surprize yourself.
             </p>
             <a className='mr-2' href="https://github.com/S0UPernova">GitHub</a>
-            <a className='ml-2' href="https://www.linkedin.com/in/michael-kielpinski-2a7019202/">linkenIn</a>
+            <a className='ml-2' href="https://www.linkedin.com/in/michael-kielpinski-2a7019202/">LinkedIn</a>
+          </Col>
+          <Col sm={12} md={5} lg={3} className={`${getShape()} bg-featured`}>
+            <h3>Jeff Harm</h3>
+            <p>
+              I am working through the Thinkful Engineering program, and joined Collaboracode to practice more and learn <em>blazingly faster!</em>
+            </p>
+            <a className='mr-2' href="https://github.com/jeffjeffjeffh">GitHub</a>
+            <a className='ml-2' href="https://www.linkedin.com/in/jeff-harm-b201921b4/">LinkedIn</a>
           </Col>
         </Row>
       </Container>

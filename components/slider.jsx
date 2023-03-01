@@ -141,7 +141,7 @@ export default function Slider({ slides }) {
   useEffect(() => {
     setMobile(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent))
   }, [])
-  console.log("slides",slides)
+
   return (
     <>
       {

@@ -1,22 +1,24 @@
-.center-div-end-all-be-all-this-name-is-too-long{
+.center-div-end-all-be-all-this-name-is-too-long {
     //flex
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.center-div-planb{
+.center-div-planb {
     //grid
     display: grid;
     place-items: center;
 }
+
 // .aboutMember {
 //     // background-color: var(--color-five);
-    
+
 // }
 .members {
+    // gap: clamp(0rem,  1rem, 50%);
     gap: 1rem;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .header {
