@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { GoogleReCaptcha, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import {
   Container,
   Row,
@@ -37,6 +38,8 @@ import { NavbarHeight } from '../utils/Statics';
 export default function Layout(props) {
   const { children } = props;
   const { asPath } = useRouter();
+  const { executeRecaptcha } = useGoogleReCaptcha();
+  const [captchaToken, setCaptchaToken] = useState("")
 
   const [navOpen, setNavOpen] = useState(false);
 
@@ -53,6 +56,8 @@ export default function Layout(props) {
   const [email, setEmail] = useState('');
   const [emailbody, setEmailBody] = useState('');
   const [emailSubmitted, setEmailSubmitted] = useState(false);
+
+  // const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
 
   useEffect(() => {
     document.body.className = 'scrollBarOne'
@@ -96,29 +101,64 @@ export default function Layout(props) {
     }
   }
 
-  const handleClick = (e) => {
+  // Create an event handler so you can call the verification on button click event or form submit
+  const handleReCaptchaVerify = useCallback(async () => {
+    if (!executeRecaptcha) {
+      console.log('Execute recaptcha not yet available');
+      return;
+    }
+
+    const token = await executeRecaptcha('')
+    // Do whatever you want with the token
+    setCaptchaToken(token)
+    // console.log('token', token)
+  }, [executeRecaptcha]);
+  
+  // You can use useEffect to trigger the verification as soon as the component being loaded
+  useEffect(() => {
+    handleReCaptchaVerify();
+  }, [handleReCaptchaVerify, email, emailbody]); //! not sure if this is needed.
+ 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    // setRefreshReCaptcha(true);
+
     if (email && emailbody && isEmail(email)) {
       setEmailSubmitted(true);
+      console.log('Captcha Token: ' + captchaToken);
+      if (captchaToken) { 
+        fetch("https://rynwv8e0q9.execute-api.us-west-2.amazonaws.com/v1/contactform", {
+          method: "POST",
+          body: JSON.stringify({ "email": email, "emailbody": emailbody, "g-recaptcha-response": captchaToken }),
+          headers: {
+            "Accept": "application/json",
+            'Content-Type': 'application/json'
+          }
+        })
+          .then(res => {
+            console.log(res);
+          })
+          .then(data => {
+            console.log(data)
+            setEmailSubmitted(false);
+          })
+          .then(() => {
+            setEmail("");
+            setEmailBody("");
 
-      fetch("https://rynwv8e0q9.execute-api.us-west-2.amazonaws.com/v1/contactform", {
-        method: "POST",
-        body: JSON.stringify({ "email": email, "emailbody": emailbody }),
-        headers: {
-          "Accept": "application/json",
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(res => {
-          console.log(res);
-      })
-      .then(data => {
-        console.log(data)
+            // setRefreshReCaptcha(false);
+          })
+          .catch(err => {
+            console.error(err);
+            setEmailSubmitted(false);
+          })
+      } else {
+        console.log('Act more human');
+        alert("We're sorry please act more human and attempt to submit again");
         setEmailSubmitted(false);
-      })
-      .catch(err => {
-        console.error(err);
-        setEmailSubmitted(false);
-      })
+      }
+      
     }
   }
 
@@ -140,7 +180,7 @@ export default function Layout(props) {
   return (
     <>
       <Navbar expand='md' fixed={'top'}
-        dark={true} 
+        dark={true}
         className={`${navClassName}`}>
         <NavbarBrand href='/'>Collaboracode</NavbarBrand>
         <NavbarToggler onClick={toggleNav} />
@@ -184,7 +224,7 @@ export default function Layout(props) {
             </NavItem>
           </Nav>
         </Collapse>
-      </Navbar> 
+      </Navbar>
 
       {/* could make this an id selector */}
       <div className='main-content z-10'>{children}</div>
@@ -195,9 +235,10 @@ export default function Layout(props) {
           <ModalBody><iframe width={540} height={405} src="https://d82cd204.sibforms.com/serve/MUIEAMhd06PZmM9TKBBxGZ4OF0a8uQtsfgBk8c1CiGlO7qyGFRQguNedxsP5wxDG7l-_0O6FuS09nbun86o-GYseQi9PPdLZJORQYy3u4wnV9t5BMElW5Pjoj3nWFMfMjaWesLKaev50S7iPGG3Peij7oXgV7spphrVEPE-oWAPuEGxxMa0KgBNIGr9dFWM5YNJx728mZZrh230-" style={{ display: 'block', marginLeft: 'auto', margin: 'auto', maxWidth: '100%' }}></iframe></ModalBody>
         </Modal>
         <Modal isOpen={contactModal} toggle={contactToggle}>
-          <ModalHeader toggle={contactToggle}>Contact</ModalHeader>
-          <ModalBody>
-            <Form>
+          <Form onSubmit={handleSubmit}>
+            <ModalHeader toggle={contactToggle}>Contact</ModalHeader>
+            <ModalBody>
+              
               <FormGroup>
                 <Label for='email'>Email</Label>
                 <Input id='email' name='email' onChange={handleChange} placeholder='Email' type='email' value={email} />
@@ -207,11 +248,18 @@ export default function Layout(props) {
                 <Label for='emailbody'>Your Message</Label>
                 <Input id='emailbody' name='emailbody' onChange={handleChange} placeholder="Your Message" type='textarea' value={emailbody} />
               </FormGroup>
-            </Form>
-          </ModalBody>
-          <ModalFooter>
-            <Button color='primary' disabled={ emailSubmitted } onClick={handleClick}>Submit</Button>
-          </ModalFooter>
+              
+              {/* <GoogleReCaptcha
+              refreshReCaptcha={ refreshReCaptcha }
+                onVerify={token => {
+                  setCaptchaToken(token);
+              }}
+            /> */}
+            </ModalBody>
+            <ModalFooter>
+              <Button color='primary' disabled={emailSubmitted} onClick={handleSubmit}>Submit</Button>
+            </ModalFooter>
+          </Form>
         </Modal>
         <Container>
           <Row className='mb-0 mt-1'>
@@ -231,10 +279,10 @@ export default function Layout(props) {
               </ul>
             </Col>
           </Row>
-        <div className='thinRow'>
-          <p className='powered'>Checkout our <a href='https://github.com/collaboracode'>GitHub</a></p>
-          <p className='powered'>Powered by Collaboration</p>
-        </div>
+          <div className='thinRow'>
+            <p className='powered'>Checkout our <a href='https://github.com/collaboracode'>GitHub</a></p>
+            <p className='powered'>Powered by Collaboration</p>
+          </div>
         </Container>
       </footer>
     </>

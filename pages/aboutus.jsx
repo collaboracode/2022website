@@ -104,6 +104,12 @@ export default function AboutUs() {
             <a className='mr-2' href="https://github.com/jeffjeffjeffh">GitHub</a>
             <a className='ml-2' href="https://www.linkedin.com/in/jeff-harm-b201921b4/">LinkedIn</a>
           </Col>
+          <Col sm={12} md={5} lg={3} className={`${getShape()} bg-featured`}>
+            <h3>Rich Murphy</h3>
+            <p>
+              I am working on deploying my own website to improve my coding abilities. This group has been supportive throughout my journey and has answered many questions both on the front and backend.  
+            </p>
+          </Col>
         </Row>
       </Container>
     </>
