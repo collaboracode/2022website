@@ -222,6 +222,15 @@ export default function Layout(props) {
                 Project Gallery
               </NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink
+                className='text-center'
+                href="/blog"
+                active={testPath('blog')}
+              >
+                Blog
+              </NavLink>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
