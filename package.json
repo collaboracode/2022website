@@ -7,6 +7,8 @@
     "devmon": "nodemon"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.325.0",
+    "@aws-sdk/lib-dynamodb": "^3.325.0",
     "bootstrap": "^4.5.0",
     "next": "latest",
     "react": "^17.0.2",

@@ -1,11 +1,12 @@
 import { Container, Row } from "reactstrap";
 import Background from "../../components/background";
+import styles from "../../styles/blog.module.scss";
 
 export default function Blog(props) {
   const { title, content, author } = props
   return (
     <>
-      <Container>
+      <Container className={styles.topMargin}>
         <Row>
           <h2>{title}</h2>
           <h3>Author: {author}</h3>

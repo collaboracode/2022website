@@ -1,5 +1,6 @@
 import { Col, Row, Card, CardBody, CardSubtitle, CardText, CardTitle, CardFooter, Container } from "reactstrap"
 import Background from "../../components/background"
+import styles from "../../styles/blog.module.scss";
 
 
 export default function BlogIndex({ posts }) {
@@ -7,7 +8,7 @@ export default function BlogIndex({ posts }) {
     <>
       <Background />
       {/* <div className='page-container'> */}
-      <Container>
+      <Container className={styles.topMargin}>
         <Row>
           <Col>
             <span className="">
