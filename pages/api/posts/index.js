@@ -47,9 +47,10 @@ export default function handler(req, res) {
                     }
                 })
             ).then((data) => {
-                res.status(200).json(data.Items);
+                res.status(201).json(data.Items);
             }); // I assume the post is similar
             break;
+            
 
     }
 
