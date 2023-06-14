@@ -1,3 +1,6 @@
+
+# 2023-06-13 - Discovered missing recaptha implementation -- Mat Resolved this
+# welcome form created -- need to add calcuation for classification and a submission form
 # added nodemon because fast refresh does not work on my machine
 
 # reactstrap Example

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { GoogleReCaptcha, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+// import { GoogleReCaptcha, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import {
   Container,
   Row,
@@ -31,15 +31,15 @@ import {
   NavbarText
 } from "reactstrap"
 
-import { NavbarHeight } from '../utils/Statics';
+import { NavbarHeight, RecaptchaSiteKey } from '../utils/Statics';
 
 // import Background from './background';
 
 export default function Layout(props) {
   const { children } = props;
   const { asPath } = useRouter();
-  const { executeRecaptcha } = useGoogleReCaptcha();
-  const [captchaToken, setCaptchaToken] = useState("")
+  // const { executeRecaptcha } = useGoogleReCaptcha();
+  // const [captchaToken, setCaptchaToken] = useState("")
 
   const [navOpen, setNavOpen] = useState(false);
 
@@ -102,63 +102,71 @@ export default function Layout(props) {
   }
 
   // Create an event handler so you can call the verification on button click event or form submit
-  const handleReCaptchaVerify = useCallback(async () => {
-    if (!executeRecaptcha) {
-      console.log('Execute recaptcha not yet available');
-      return;
-    }
+  // const handleReCaptchaVerify = useCallback(async () => {
+  //   if (!executeRecaptcha) {
+  //     console.log('Execute recaptcha not yet available');
+  //     return;
+  //   }
 
-    const token = await executeRecaptcha('')
-    // Do whatever you want with the token
-    setCaptchaToken(token)
-    // console.log('token', token)
-  }, [executeRecaptcha]);
+  //   const token = await executeRecaptcha('')
+  //   // Do whatever you want with the token
+  //   setCaptchaToken(token)
+  //   // console.log('token', token)
+  // }, [executeRecaptcha]);
   
-  // You can use useEffect to trigger the verification as soon as the component being loaded
-  useEffect(() => {
-    handleReCaptchaVerify();
-  }, [handleReCaptchaVerify, email, emailbody]); //! not sure if this is needed.
- 
+  // // You can use useEffect to trigger the verification as soon as the component being loaded
+  // useEffect(() => {
+  //   handleReCaptchaVerify();
+  // }, [handleReCaptchaVerify, email, emailbody]); //! not sure if this is needed.
+  
+
+
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     // setRefreshReCaptcha(true);
+    // const { recaptchaSiteKey } = props;
 
     if (email && emailbody && isEmail(email)) {
-      setEmailSubmitted(true);
-      console.log('Captcha Token: ' + captchaToken);
-      if (captchaToken) { 
-        fetch("https://rynwv8e0q9.execute-api.us-west-2.amazonaws.com/v1/contactform", {
-          method: "POST",
-          body: JSON.stringify({ "email": email, "emailbody": emailbody, "g-recaptcha-response": captchaToken }),
-          headers: {
-            "Accept": "application/json",
-            'Content-Type': 'application/json'
-          }
-        })
-          .then(res => {
-            console.log(res);
-          })
-          .then(data => {
-            console.log(data)
-            setEmailSubmitted(false);
-          })
-          .then(() => {
-            setEmail("");
-            setEmailBody("");
+      window.grecaptcha.ready(() => {
+        window.grecaptcha
+        .execute(RecaptchaSiteKey, { action: 'submit' })
+        .then(async token => {
+          setEmailSubmitted(true);
+          console.log('Captcha Token: ' + token);
+          if (token) { 
+            fetch("https://rynwv8e0q9.execute-api.us-west-2.amazonaws.com/v1/contactform", {
+              method: "POST",
+              body: JSON.stringify({ "email": email, "emailbody": emailbody, "g-recaptcha-response": token }),
+              headers: {
+                "Accept": "application/json",
+                'Content-Type': 'application/json'
+              }
+            })
+              .then(res => {
+                console.log(res);
+              })
+              .then(data => {
+                console.log(data)
+                setEmailSubmitted(false);
+              })
+              .then(() => {
+                setEmail("");
+                setEmailBody("");
 
-            // setRefreshReCaptcha(false);
-          })
-          .catch(err => {
-            console.error(err);
+                // setRefreshReCaptcha(false);
+              })
+              .catch(err => {
+                console.error(err);
+                setEmailSubmitted(false);
+              })
+          } else {
+            console.log('Act more human');
+            alert("We're sorry please act more human and attempt to submit again");
             setEmailSubmitted(false);
-          })
-      } else {
-        console.log('Act more human');
-        alert("We're sorry please act more human and attempt to submit again");
-        setEmailSubmitted(false);
-      }
-      
+          }
+        });
+      });
     }
   }
 
