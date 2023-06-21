@@ -1,32 +1,31 @@
 
-# 2023-06-13 - Discovered missing recaptha implementation -- Mat Resolved this
+# 2023-06-13 - Discovered missing recaptha implementation -- Matt Resolved this
+<br>
+
 # welcome form created -- need to add calcuation for classification and a submission form
-# added nodemon because fast refresh does not work on my machine
+<br>
 
-# reactstrap Example
+# Getting started
+<br>
 
-This example shows how to use Next.js with [reactstrap](https://reactstrap.github.io/).
+## Environment variables that will need to be set
+These environment variables should be in a file called .env.local in the projects root directory.
+-  DISCORD_URL &nbsp;&nbsp;&nbsp;*which is for a discord webhook*
 
-## Deploy your own
+<br>
+<hr>
+<br>
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-reactstrap)
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-reactstrap&project-name=with-reactstrap&repository-name=with-reactstrap)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
-
+## Run dev
 ```bash
-npx create-next-app --example with-reactstrap with-reactstrap-app
+npm run dev
 ```
-
+## Run built version
+first make a new build
 ```bash
-yarn create next-app --example with-reactstrap with-reactstrap-app
+npm run build
 ```
-
+then run it
 ```bash
-pnpm create next-app --example with-reactstrap with-reactstrap-app
+npm start
 ```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
