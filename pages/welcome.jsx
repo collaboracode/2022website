@@ -14,6 +14,8 @@ export default function Welcome() {
     other: ''
   });
 
+  const [submitting, setSubmitting] = useState(false);
+
   const handleChange = (e) => {
     const attributeKey = e.target.name;
     const value = e.target.value;
@@ -26,6 +28,8 @@ export default function Welcome() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
+
     const res = await fetch('/api/welcome', {
       method: 'POST',
       body: JSON.stringify(attributes),
@@ -38,11 +42,11 @@ export default function Welcome() {
   };
   return (
     <>
-      <Background/>
+      <Background />
       <Container>
         <Row className='bg-featured'>
-          <h1>Welcome to Collaboracode.</h1>
-          <p>We'd like to know a little bit about you so we can help you on your learning journey. Please fill out the form below and it will help is pair you with projects, peers and provide support based on your skill level. Feel free to skip any fields or questions you aren't comfortable with sharing.</p>
+          <h1>Welcome to Collaboracode!</h1>
+          <p>Our group would like to get to know a little bit about you so we can help you on your learning journey. Please fill out the form below and to align us for pairing you with projects, peers, and support based on your skill level. Feel free to skip any fields or questions you aren't comfortable with sharing.</p>
         </Row>
         <Row className='bg-about'>
           <Col xs={{ size: 12 }} md={{ size: 8, offset: 1 }} lg={{ size: 6, offset: 2 }}>
@@ -53,7 +57,7 @@ export default function Welcome() {
               </FormGroup>
               <FormGroup>
                 <Label for="email">Discord Name</Label>
-                <Input type="text" name="discord" id="welcome-discord" onChange={handleChange} placeholder="Enter your discord name" />
+                <Input type="text" name="discord" id="welcome-discord" onChange={handleChange} placeholder="Enter your discord tag" />
               </FormGroup>
               <FormGroup>
                 <Label for="email">Email</Label>
@@ -95,9 +99,25 @@ export default function Welcome() {
 
               </FormGroup>
               <FormGroup>
-                <Button className="btn btn-primary" type="submit">Submit</Button>
-              </FormGroup>
+                <Button disabled={submitting} className="btn btn-primary" type="submit">Submit</Button>
 
+              </FormGroup>
+              <div id="SubmitModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Form Submitted Successfully</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p> Thank you for submitting the form!</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </Form>
           </Col>
         </Row>

@@ -11,6 +11,7 @@ const tableName = "collaboracode-blog-2023";
  * @param {Response} res
  */
 export default function handler(req, res) {
+    // console.log(res.body)
     const client = new DynamoDBClient({
         region: "us-west-2", credentials: {
             accessKeyId: process.env.AWS_ID,
@@ -32,6 +33,7 @@ export default function handler(req, res) {
             break;
         // POST CREATE NEW
         case 'POST':
+            console.log(req.body)
             let requestJSON = JSON.parse(req.body)
             
             dynamo.send(
