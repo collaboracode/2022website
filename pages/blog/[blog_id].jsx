@@ -1,4 +1,5 @@
 import { Container, Row } from "reactstrap";
+import ReactHtmlParser from "react-html-parser";
 import Background from "../../components/background";
 import styles from "../../styles/blog.module.scss";
 
@@ -6,13 +7,18 @@ export default function Blog(props) {
   const { title, content, author } = props
   return (
     <>
+      <Background/>
       <Container className={styles.topMargin}>
+        <div className="bg-featured">
         <Row>
           <h2>{title}</h2>
-          <h3>Author: {author}</h3>
         </Row>
         <Row>
-          <p>{content}</p>
+          <h3>Author: {author}</h3>
+        </Row>
+        </div>
+        <Row className="bg-about">
+          {ReactHtmlParser(content)}
         </Row>
       </Container>
     </>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Col, Row, Card, CardBody, CardSubtitle, CardText, CardTitle, CardFooter, Container } from "reactstrap"
 import Background from "../../components/background"
 import styles from "../../styles/blog.module.scss";
@@ -7,7 +8,6 @@ export default function BlogIndex({ posts }) {
   return (
     <>
       <Background />
-      {/* <div className='page-container'> */}
       <Container className={styles.topMargin}>
         <Row>
           <Col>
@@ -18,8 +18,12 @@ export default function BlogIndex({ posts }) {
         </Row>
         <div className="bg-about">
 
-        {posts.map((post) => (
-          <Row key={post.id}><p>{post.author}</p></Row>
+          {posts.map((post) => (
+            <Row key={post.id} className="flex-column">
+              <Link href={`/blog/${post.id}`}>{post.title}</Link> {/*//todo get our colors working on this to overide the bootstrap one */}
+              {/*//todo make the author a link to the members profile on the site, which should have links to socials, and a list projects they worked on. */}
+              <p>writen by {post.author}</p>
+            </Row>
           ))}
 
         </div>
@@ -39,7 +43,6 @@ export async function getStaticProps() {
   return {
     props: {
       posts,
-
     },
   }
 }

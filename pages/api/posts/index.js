@@ -34,7 +34,7 @@ export default function handler(req, res) {
         // POST CREATE NEW
         case 'POST':
             console.log(req.body)
-            let requestJSON = JSON.parse(req.body)
+            let requestJSON = req.body
             
             dynamo.send(
                 new PutCommand({
