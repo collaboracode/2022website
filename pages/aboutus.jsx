@@ -20,7 +20,7 @@ export default function AboutUs() {
         <title>The About Page</title>
       </Head>
       <Background />
-      <Container className="lg-container page-container">
+      <Container className="lg-container">
         {/* 
         //? Not sure how it sounds to you guys, but maybe we could have pictures of the members and a brief blurb
         //? and on click scroll to the member tile, or maybe scrap that and have each member have a full about page,
