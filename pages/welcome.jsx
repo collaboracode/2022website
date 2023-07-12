@@ -1,4 +1,4 @@
-import { Button, Col, Container, Row, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Col, Container, Row, Form, FormGroup, Label, Input, FormText, Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
 import { useState } from 'react';
 
 import Background from "../components/background"
@@ -15,6 +15,9 @@ export default function Welcome() {
   });
 
   const [submitting, setSubmitting] = useState(false);
+  const [submitModal, setSubmitModal] = useState(false);
+
+
 
   const handleChange = (e) => {
     const attributeKey = e.target.name;
@@ -25,11 +28,22 @@ export default function Welcome() {
 
     setAttributes(attributesClone);
   }
+  const handleReset = (e) => {
+    setAttributes({
+      name: '',
+      discord: '',
+      email: '',
+      html: '',
+      javascript: '',
+      react: '',
+      other: ''
+    });
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-
+    
     const res = await fetch('/api/welcome', {
       method: 'POST',
       body: JSON.stringify(attributes),
@@ -38,8 +52,27 @@ export default function Welcome() {
         'Content-Type': 'application/json'
       }
     })
+
+    setSubmitModal(true);
+
     console.log(await res.json())
   };
+
+  const closeAndReset = () => {
+    // Toggle the modal off and clear the form fields
+    setSubmitting(false);
+    setSubmitModal(false);
+    setAttributes({
+      name: '',
+      discord: '',
+      email: '',
+      html: '',
+      javascript: '',
+      react: '',
+      other: ''
+    });
+  };
+
   return (
     <>
       <Background />
@@ -53,19 +86,19 @@ export default function Welcome() {
             <Form onSubmit={handleSubmit}>
               <FormGroup>
                 <Label for="name">Name</Label>
-                <Input type="text" name="name" id="welcome-name" onChange={handleChange} placeholder="Enter your name" />
+                <Input type="text" name="name" id="welcome-name" value={attributes.name} onChange={handleChange} placeholder="Enter your name" />
               </FormGroup>
               <FormGroup>
                 <Label for="email">Discord Name</Label>
-                <Input type="text" name="discord" id="welcome-discord" onChange={handleChange} placeholder="Enter your discord tag" />
+                <Input type="text" name="discord" id="welcome-discord" value={attributes.discord} onChange={handleChange} placeholder="Enter your discord tag" />
               </FormGroup>
               <FormGroup>
                 <Label for="email">Email</Label>
-                <Input type="email" name="email" id="welcome-email" onChange={handleChange} placeholder="Enter your email" />
+                <Input type="email" name="email" id="welcome-email" value={attributes.email} onChange={handleChange} placeholder="Enter your email" />
               </FormGroup>
               <FormGroup>
                 <Label for="html">HTML/CSS Experience Level</Label>
-                <Input type="select" name='html' id='welcome-html' onChange={handleChange}>
+                <Input type="select" name='html' id='welcome-html' onChange={handleChange} value={attributes.html}>
                   <option value={"Brand new"}>What is HTML?</option>
                   <option value={"less than 6 months"}>Less than 6 months</option>
                   <option value={"less than 9 months"}>Less than 9 months</option>
@@ -75,7 +108,7 @@ export default function Welcome() {
               </FormGroup>
               <FormGroup>
                 <Label for="javascript">Javascript Experience Level</Label>
-                <Input type="select" name="javascript" id="welcome-javascript" onChange={handleChange}>
+                <Input type="select" name="javascript" id="welcome-javascript" onChange={handleChange} value={attributes.javascript}>
                   <option value={"Brand new"}>Is that the writing in my cappuccino?</option>
                   <option value={"less than 6 months"}>Less than 6 months</option>
                   <option value={"less than 9 months"}>Less than 9 months</option>
@@ -85,7 +118,7 @@ export default function Welcome() {
               </FormGroup>
               <FormGroup>
                 <Label for="react">React Experience Level</Label>
-                <Input type="select" name="react" id="welcome-react" onChange={handleChange}>
+                <Input type="select" name="react" id="welcome-react" onChange={handleChange} value={attributes.react}>
                   <option value={"Brand new"}>What is React? || That youtube thing?</option>
                   <option value={"less than 6 months"}>Less than 6 months</option>
                   <option value={"less than 9 months"}>Less than 9 months</option>
@@ -95,29 +128,18 @@ export default function Welcome() {
               </FormGroup>
               <FormGroup>
                 <Label for="other">Any other relevant experience programming</Label>
-                <Input type="textarea" name="other" id="welcome-other" onChange={handleChange} placeholder="Any other relevant experience programming" />
-
+                <Input type="textarea" name="other" id="welcome-other" value={attributes.other} onChange={handleChange} placeholder="Any other relevant experience programming" />
               </FormGroup>
               <FormGroup>
                 <Button disabled={submitting} className="btn btn-primary" type="submit">Submit</Button>
-
+                <Button className="btn btn-primary" onClick={handleReset}>Reset</Button>
               </FormGroup>
-              <div id="SubmitModal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Form Submitted Successfully</h4>
-                    </div>
-                    <div class="modal-body">
-                      <p> Thank you for submitting the form!</p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <Modal isOpen={submitModal} size='lg'>
+                <ModalHeader >Welcome Submission</ModalHeader>
+                <ModalBody>Thank you for your submission to CollaboraCode. Your information has been passed to the moderators in Discord.
+                </ModalBody>
+                <ModalFooter><Button onClick={closeAndReset}>Close</Button></ModalFooter>
+              </Modal>
             </Form>
           </Col>
         </Row>

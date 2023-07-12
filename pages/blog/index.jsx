@@ -1,16 +1,29 @@
 import Link from "next/link";
-import { Col, Row, Card, CardBody, CardSubtitle, CardText, CardTitle, CardFooter, Container } from "reactstrap"
+import { useState } from "react";
+import { Col, Row, Card, CardBody, CardSubtitle, CardText, CardTitle, CardFooter, Container, Button } from "reactstrap"
 import Background from "../../components/background"
+import Login from "../../components/login";
 import styles from "../../styles/blog.module.scss";
 
 
 export default function BlogIndex({ posts }) {
+  const [open, setOpen] = useState(false)
+  const openLogin = () => {
+    setOpen(true)
+  }
   return (
     <>
       <Background />
+
+      {/* // todo figure out if this is where we want this */}
+      <Login open={open} setOpen={setOpen} />
+
       <Container className={styles.topMargin}>
         <Row>
           <Col>
+            {/* // todo figure out if this is where we want this */}
+            <Button onClick={openLogin}>Login</Button>
+
             <span className="">
               <h1 className="text-center mb-5 bg-about">Blog</h1>
             </span>

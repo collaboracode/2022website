@@ -6,3 +6,4 @@
  - AWS_KEY
  - ORIGIN
  - TINY_KEY // the api key for TinyMCE 
+ - DISCORD_URL // web hook to newcomers integration channel (posts data from welcome fill out form)
