@@ -25,17 +25,40 @@ export default function handler(req, res) {
         // PUT Updates
         case 'GET':
             dynamo.send(
-                new ScanCommand({ TableName: tableName })
+                new ScanCommand({
+
+                    TableName: tableName,
+
+                    FilterExpression: "attribute_not_exists(#draft) OR #draft = :val",
+                    ExpressionAttributeNames: {"#draft": "draft"},
+                    ExpressionAttributeValues: {
+                        ":val": false
+                    }
+                    
+                    // ScanFilter: {
+                    //     "draft": {
+                    //         // AttributeValueList: [ {"N": 1} ],
+                    //         // ComparisonOperator: "EQ",       
+                    //         
+                    //     }
+                    // }
+                })
             ).then((data) => {
+                console.log("\n\nthe data:\n", data.Items)
                 res.status(200).json(data.Items);
-            });
+            })
+            //? why does checking for error cause an error!?!?!!!!!!!
+            // .error((err) => {
+            //     console.log(err);
+            //     res.status(200)//.json({err: err});
+            // });
 
             break;
         // POST CREATE NEW
         case 'POST':
-            console.log(req.body)
+            // console.log(req.body)
             let requestJSON = req.body
-            
+
             dynamo.send(
                 new PutCommand({
                     TableName: tableName,
@@ -45,14 +68,16 @@ export default function handler(req, res) {
                         title: requestJSON.title,
                         channel: requestJSON.channel,
                         date: requestJSON.date,
-                        content: requestJSON.content
+                        content: requestJSON.content,
+                        draft: requestJSON.draft,
+                        changed: requestJSON.date
                     }
                 })
             ).then((data) => {
                 res.status(201).json(data.Items);
             }); // I assume the post is similar
             break;
-            
+
 
     }
 

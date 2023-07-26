@@ -8,19 +8,22 @@ export default function newBlog() {
   const editorRef = useRef(null);
   const [title, setTitle] = useState("")
 
-  const post = async (e) => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent())
+  const save = async (isDraft) => {
+    if (editorRef.current /*// todo add user check here */) {
+      // console.log(editorRef.current.getContent())
       await fetch(`/api/posts`, {
         method: 'POST',
         body: JSON.stringify(
           {
             id: Date.now(),
-            author: "testName",
+            // todo send username with it maybe here
+            author: "testName", // maybe make this username, or name from the account
             title: title,
             channel: "main", //? maybe use select
             date: Date.now(),
-            content: editorRef.current.getContent()
+            content: editorRef.current.getContent(),
+            draft: isDraft,
+            changed: Date.now()
           }),
         headers: {
           'Accept': 'application/json',
@@ -29,6 +32,14 @@ export default function newBlog() {
       })
       // todo add something to let the user know it worked, and clear the fields
     }
+  }
+
+  const post = () => {
+    save(true)
+  }
+
+  const draft = () => {
+    save(false)
   }
 
   const handleChange = (e) => {
@@ -64,6 +75,7 @@ export default function newBlog() {
           }}
         />
         <button onClick={post}>Post</button>
+        <button onClick={draft}>Save</button>
       </Container>
     </>
   )

@@ -42,7 +42,8 @@ export default function handler(req, res) {
             title: requestJSON.title,
             channel: requestJSON.channel,
             date: requestJSON.date,
-            content: requestJSON.content
+            content: requestJSON.content,
+            draft: requestJSON.draft
           }
         })
       ).then((data) => {
