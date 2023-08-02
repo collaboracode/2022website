@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+// import { cookies } from 'next/headers'
 import Link from 'next/link'
 // import { GoogleReCaptcha, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import {
@@ -32,10 +33,22 @@ import {
 } from "reactstrap"
 
 import { NavbarHeight, RecaptchaSiteKey } from '../utils/Statics';
+import Login from './login';
 
 // import Background from './background';
 
 export default function Layout(props) {
+  // const cookieMonster = cookies() // https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREGRDP5u1d-Isw-RhPB4DUopcgSGPmSGkre8dZUvsi8YcB6cbZ09l4929er8lo0N8CVOg&usqp=CAU
+  // const user = cookieMonster.get("user")
+  const [signedIn, setSignedIn] = useState(false)
+  const [open, setOpen] = useState(false)
+  const openLogin = () => {
+    setOpen(true)
+  }
+  const handleSignOut = (e) => {
+    fetch()
+  }
+
   const { children } = props;
   const { asPath } = useRouter();
   // const { executeRecaptcha } = useGoogleReCaptcha();
@@ -113,12 +126,12 @@ export default function Layout(props) {
   //   setCaptchaToken(token)
   //   // console.log('token', token)
   // }, [executeRecaptcha]);
-  
+
   // // You can use useEffect to trigger the verification as soon as the component being loaded
   // useEffect(() => {
   //   handleReCaptchaVerify();
   // }, [handleReCaptchaVerify, email, emailbody]); //! not sure if this is needed.
-  
+
 
 
   const handleSubmit = (e) => {
@@ -130,42 +143,42 @@ export default function Layout(props) {
     if (email && emailbody && isEmail(email)) {
       window.grecaptcha.ready(() => {
         window.grecaptcha
-        .execute(RecaptchaSiteKey, { action: 'submit' })
-        .then(async token => {
-          setEmailSubmitted(true);
-          console.log('Captcha Token: ' + token);
-          if (token) { 
-            fetch("https://rynwv8e0q9.execute-api.us-west-2.amazonaws.com/v1/contactform", {
-              method: "POST",
-              body: JSON.stringify({ "email": email, "emailbody": emailbody, "g-recaptcha-response": token }),
-              headers: {
-                "Accept": "application/json",
-                'Content-Type': 'application/json'
-              }
-            })
-              .then(res => {
-                console.log(res);
+          .execute(RecaptchaSiteKey, { action: 'submit' })
+          .then(async token => {
+            setEmailSubmitted(true);
+            console.log('Captcha Token: ' + token);
+            if (token) {
+              fetch("https://rynwv8e0q9.execute-api.us-west-2.amazonaws.com/v1/contactform", {
+                method: "POST",
+                body: JSON.stringify({ "email": email, "emailbody": emailbody, "g-recaptcha-response": token }),
+                headers: {
+                  "Accept": "application/json",
+                  'Content-Type': 'application/json'
+                }
               })
-              .then(data => {
-                console.log(data)
-                setEmailSubmitted(false);
-              })
-              .then(() => {
-                setEmail("");
-                setEmailBody("");
+                .then(res => {
+                  console.log(res);
+                })
+                .then(data => {
+                  console.log(data)
+                  setEmailSubmitted(false);
+                })
+                .then(() => {
+                  setEmail("");
+                  setEmailBody("");
 
-                // setRefreshReCaptcha(false);
-              })
-              .catch(err => {
-                console.error(err);
-                setEmailSubmitted(false);
-              })
-          } else {
-            console.log('Act more human');
-            alert("We're sorry please act more human and attempt to submit again");
-            setEmailSubmitted(false);
-          }
-        });
+                  // setRefreshReCaptcha(false);
+                })
+                .catch(err => {
+                  console.error(err);
+                  setEmailSubmitted(false);
+                })
+            } else {
+              console.log('Act more human');
+              alert("We're sorry please act more human and attempt to submit again");
+              setEmailSubmitted(false);
+            }
+          });
       });
     }
   }
@@ -184,6 +197,7 @@ export default function Layout(props) {
     const emx = /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/gm;
     return emx.test(email);
   }
+
 
   return (
     <>
@@ -240,8 +254,22 @@ export default function Layout(props) {
               </NavLink>
             </NavItem>
           </Nav>
+          {
+            testPath("blog") === true &&
+            <>
+              {
+                signedIn ?
+                  <Button onClick={handleSignOut}>Sign out</Button>
+                  :
+                  <Button onClick={openLogin}>Login</Button>
+              }
+            </>
+          }
         </Collapse>
       </Navbar>
+
+      {/*// login form modal */}
+      <Login open={open} setOpen={setOpen} />
 
       {/* could make this an id selector */}
       <div className='main-content z-10'>{children}</div>
@@ -252,10 +280,11 @@ export default function Layout(props) {
           <ModalBody><iframe width={540} height={405} src="https://d82cd204.sibforms.com/serve/MUIEAMhd06PZmM9TKBBxGZ4OF0a8uQtsfgBk8c1CiGlO7qyGFRQguNedxsP5wxDG7l-_0O6FuS09nbun86o-GYseQi9PPdLZJORQYy3u4wnV9t5BMElW5Pjoj3nWFMfMjaWesLKaev50S7iPGG3Peij7oXgV7spphrVEPE-oWAPuEGxxMa0KgBNIGr9dFWM5YNJx728mZZrh230-" style={{ display: 'block', marginLeft: 'auto', margin: 'auto', maxWidth: '100%' }}></iframe></ModalBody>
         </Modal>
         <Modal isOpen={contactModal} toggle={contactToggle}>
+
           <Form onSubmit={handleSubmit}>
             <ModalHeader toggle={contactToggle}>Contact</ModalHeader>
             <ModalBody>
-              
+
               <FormGroup>
                 <Label for='email'>Email</Label>
                 <Input id='email' name='email' onChange={handleChange} placeholder='Email' type='email' value={email} />
@@ -265,7 +294,7 @@ export default function Layout(props) {
                 <Label for='emailbody'>Your Message</Label>
                 <Input id='emailbody' name='emailbody' onChange={handleChange} placeholder="Your Message" type='textarea' value={emailbody} />
               </FormGroup>
-              
+
               {/* <GoogleReCaptcha
               refreshReCaptcha={ refreshReCaptcha }
                 onVerify={token => {

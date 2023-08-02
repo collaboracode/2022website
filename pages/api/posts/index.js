@@ -44,7 +44,7 @@ export default function handler(req, res) {
                     // }
                 })
             ).then((data) => {
-                console.log("\n\nthe data:\n", data.Items)
+                // console.log("\n\nthe data:\n", data.Items)
                 res.status(200).json(data.Items);
             })
             //? why does checking for error cause an error!?!?!!!!!!!
