@@ -43,6 +43,7 @@ export default function handler(req, res) {
             channel: requestJSON.channel,
             date: requestJSON.date,
             content: requestJSON.content,
+            changed: requestJSON.changed,
             draft: requestJSON.draft
           }
         })

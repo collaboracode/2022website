@@ -70,7 +70,7 @@ export default function handler(req, res) {
                         date: requestJSON.date,
                         content: requestJSON.content,
                         draft: requestJSON.draft,
-                        changed: requestJSON.date
+                        changed: requestJSON.changed
                     }
                 })
             ).then((data) => {

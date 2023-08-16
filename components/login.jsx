@@ -51,11 +51,11 @@ export default function Login(props) {
             <Label for="email">
               Email:
             </Label>
-            <Input type="email" id="email" name="email" value={email} onChange={handleChange} />
+            <Input type="email" id="email" name="email" value={email} onChange={handleChange} required/>
             <Label for="password">
               Password:
             </Label>
-            <Input type="password" id="password" name="password" value={password} onChange={handleChange} />
+            <Input type="password" id="password" name="password" value={password} onChange={handleChange} required/>
           </FormGroup>
           <Button>Submit</Button>
         </Form>

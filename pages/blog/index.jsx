@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { useState } from "react";
-import { Col, Row, Card, CardBody, CardSubtitle, CardText, CardTitle, CardFooter, Container, Button } from "reactstrap"
+import { Col, Row, Container } from "reactstrap"
 import Background from "../../components/background"
 // import Login from "../../components/login";
 import styles from "../../styles/blog.module.scss";

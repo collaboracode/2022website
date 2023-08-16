@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 
-import { Container, Form, FormGroup, Input, Label } from "reactstrap"
+import { Container, Input, Label } from "reactstrap"
 import Background from '../../components/background';
 export default function newBlog() {
 

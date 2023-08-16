@@ -34,6 +34,7 @@ import {
 
 import { NavbarHeight, RecaptchaSiteKey } from '../utils/Statics';
 import Login from './login';
+import sessionButton from './sessionButton';
 
 // import Background from './background';
 
@@ -254,17 +255,10 @@ export default function Layout(props) {
               </NavLink>
             </NavItem>
           </Nav>
-          {
-            testPath("blog") === true &&
-            <>
-              {
-                signedIn ?
-                  <Button onClick={handleSignOut}>Sign out</Button>
-                  :
-                  <Button onClick={openLogin}>Login</Button>
-              }
-            </>
-          }
+          {/* {
+            testPath("blog") === true && <sessionButton/>
+          } */}
+          <sessionButton/>
         </Collapse>
       </Navbar>
 
@@ -312,8 +306,8 @@ export default function Layout(props) {
             <Col sm="12" md="4">
               <ul className="list-unstyled text-center">
                 <li className='footerSectionHeading'><strong>Register to Join us on Meetup</strong></li>
-                <li><Link href="https://www.meetup.com/collaboracode-sanantonio-tx/" passHref><a target="_blank">San Antonio, TX</a></Link></li>
-                <li><Link href="https://www.meetup.com/collaboracode-danville-ca/" passHref><a target="_blank">Danville, CA</a></Link></li>
+                <li><Link href="https://www.meetup.com/collaboracode-sanantonio-tx/" passHref>San Antonio, TX</Link></li>
+                <li><Link href="https://www.meetup.com/collaboracode-danville-ca/" passHref>Danville, CA</Link></li>
               </ul>
             </Col>
             <Col sm="12" md="4"></Col>

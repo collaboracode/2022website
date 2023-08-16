@@ -1,0 +1,9 @@
+# Query: next/headers
+# ContextLines: 1
+
+1 result - 1 file
+
+components/layout.jsx:
+  2  import { useRouter } from 'next/router'
+  3: import { cookies } from 'next/headers'
+  4  import Link from 'next/link'

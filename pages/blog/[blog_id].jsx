@@ -1,5 +1,5 @@
 import { Container, Row } from "reactstrap";
-import ReactHtmlParser from "react-html-parser";
+// import ReactHtmlParser from "react-html-parser";
 import Background from "../../components/background";
 import styles from "../../styles/blog.module.scss";
 
@@ -18,7 +18,8 @@ export default function Blog(props) {
         </Row>
         </div>
         <Row className="bg-about">
-          {ReactHtmlParser(content)}
+          {/* {ReactHtmlParser(content)} */}
+          {content}
         </Row>
       </Container>
     </>

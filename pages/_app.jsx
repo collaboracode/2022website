@@ -1,3 +1,4 @@
+import { SessionProvider } from "next-auth/react"
 // import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 // import React, { useEffect, useState } from 'react';
 
@@ -8,7 +9,7 @@ import useScript from '../utils/useScript';
 
 import '../styles/index.scss'
 
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps: {session, ...pageProps} }) {
   useScript(`${RecaptchaAPIURL}?render=${RecaptchaSiteKey}`);
 
   // const [recaptchaSiteKey, setRecaptchaSiteKey] = useState(RecaptchaSiteKey);
@@ -23,7 +24,7 @@ export default function MyApp({ Component, pageProps }) {
   //       console.error("[ERROR]: ReCAPTCHA Site Key not found.");
   //     }
   //   }
-    
+
   //   getRecaptchaSiteKey();
   // }, []);
 
@@ -48,9 +49,12 @@ export default function MyApp({ Component, pageProps }) {
     //   //   }
     //   // }}
     // >
+    <SessionProvider session={session}>
+
       <Layout>
         <Component {...pageProps} />
       </Layout>
+    </SessionProvider>
     // </GoogleReCaptchaProvider>
 
   )

@@ -88,7 +88,7 @@ export default async function handler(req, res) {
     KeySchema: [
       {
         AttributeName: "id",
-        KeyType: "Range",
+        KeyType: "HASH",
       },
     ],
     ProvisionedThroughput: {
