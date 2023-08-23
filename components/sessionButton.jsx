@@ -1,8 +1,8 @@
 import { Button } from "reactstrap"
 import { useSession, signIn, signOut } from "next-auth/react"
-export default function sessionButton() {
+export default function SessionButton() {
   const { data: session } = useSession()
-  return <h1>Hello!!!</h1>
+  // return <h1>Hello!!!</h1>
   if (session) {
     return (
       <>

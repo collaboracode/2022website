@@ -1,3 +1,23 @@
+import { getServerSession } from "next-auth"
+import GithubProvider from "next-auth/providers/github"
+// import { authOptions } from 'pages/api/auth/[...nextauth]'
+const authOptions = {
+
+    providers: [
+        GithubProvider({
+            clientId: process.env.GITHUB_CLIENT_ID,
+            clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        })
+    ],
+    secret: process.env.NEXTAUTH_SECRET
+   /* callbacks: {
+        async jwt({ token }) {
+            token.userRole = "admin"
+            return token
+        },
+    }, */
+}
+
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
     DynamoDBDocumentClient,
@@ -30,11 +50,11 @@ export default function handler(req, res) {
                     TableName: tableName,
 
                     FilterExpression: "attribute_not_exists(#draft) OR #draft = :val",
-                    ExpressionAttributeNames: {"#draft": "draft"},
+                    ExpressionAttributeNames: { "#draft": "draft" },
                     ExpressionAttributeValues: {
                         ":val": false
                     }
-                    
+
                     // ScanFilter: {
                     //     "draft": {
                     //         // AttributeValueList: [ {"N": 1} ],
@@ -58,24 +78,39 @@ export default function handler(req, res) {
         case 'POST':
             // console.log(req.body)
             let requestJSON = req.body
+            getServerSession(req, res, authOptions).then((session) => {
+                console.log('session: ' + JSON.stringify(session));
 
-            dynamo.send(
-                new PutCommand({
-                    TableName: tableName,
-                    Item: {
-                        id: requestJSON.id,
-                        author: requestJSON.author,
-                        title: requestJSON.title,
-                        channel: requestJSON.channel,
-                        date: requestJSON.date,
-                        content: requestJSON.content,
-                        draft: requestJSON.draft,
-                        changed: requestJSON.changed
-                    }
+                dynamo.send(
+                    new PutCommand({
+                        TableName: tableName,
+                        Item: {
+                            id: requestJSON.id,
+                            author: requestJSON.author,
+                            title: requestJSON.title,
+                            channel: requestJSON.channel,
+                            date: requestJSON.date,
+                            content: requestJSON.content,
+                            draft: requestJSON.draft,
+                            changed: requestJSON.changed
+                        }
+                    })
+                ).then((data) => {
+                    // conso
+                    res.status(201).json(data.Items);
+                    // res.end()
+                }).catch((error) => {
+                    console.log(JSON.stringify(error));
+                   res.status(500).json(error);
+                }); // I assume the post is similar
+                // } else {
+            })
+                .catch(() => {
+                    // Not Signed in
+                    res.status(401).json("")
+                    // res.end()
                 })
-            ).then((data) => {
-                res.status(201).json(data.Items);
-            }); // I assume the post is similar
+
             break;
 
 

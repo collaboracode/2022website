@@ -3,6 +3,8 @@ import { Editor } from '@tinymce/tinymce-react';
 
 import { Container, Input, Label } from "reactstrap"
 import Background from '../../components/background';
+// import { redirect } from 'next/dist/server/api-utils';
+import { getSession } from 'next-auth/react';
 export default function newBlog() {
 
   const editorRef = useRef(null);
@@ -48,7 +50,8 @@ export default function newBlog() {
 
   return (
     <>
-      <Background/>
+
+      <Background />
       <script src={`https://cdn.tiny.cloud/1/${process.env.TINY_KEY}/tinymce/5/tinymce.min.js`} referrerPolicy="origin"></script>
       <Container className='bg-about'>
         <Label>
@@ -79,4 +82,19 @@ export default function newBlog() {
       </Container>
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context)
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false
+      }
+    }
+  }
+  return {
+    props: { session }
+  }
 }

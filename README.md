@@ -1,3 +1,8 @@
+## TODO: finish working on auth
+- get blog/new working again
+- add backend checks for roles
+- maybe have a db of users and their roles
+
 ## TODO: Make modal display on welcome submit - this is done
 ## TODO: upgrade to nextjs 13 and get cookies working
 ## TODO: improve migrations system
@@ -15,6 +20,9 @@
  - DISCORD_URL // web hook to newcomers integration channel (posts data from welcome fill out form)
  - ENVIRONMENT = 'TEST' || 'PROD' // used to determine which dynamo connection to use
  - DYNAMOURL = 'http://localhost:8000' || 'https://dynamodb.us-west-2.amazonaws.com' // used to determine which dynamo connection to use
+ - GITHUB_CLIENT_ID 
+ - GITHUB_CLIENT_SECRET
+ - NEXTAUTH_SECRET //$ openssl rand -base64 32
 ## DB schemas
 ### blog
 ```

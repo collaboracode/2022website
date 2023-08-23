@@ -33,8 +33,7 @@ import {
 } from "reactstrap"
 
 import { NavbarHeight, RecaptchaSiteKey } from '../utils/Statics';
-import Login from './login';
-import sessionButton from './sessionButton';
+import SessionButton from './sessionButton';
 
 // import Background from './background';
 
@@ -258,12 +257,12 @@ export default function Layout(props) {
           {/* {
             testPath("blog") === true && <sessionButton/>
           } */}
-          <sessionButton/>
+          <SessionButton/>
         </Collapse>
       </Navbar>
 
       {/*// login form modal */}
-      <Login open={open} setOpen={setOpen} />
+      {/* <Login open={open} setOpen={setOpen} /> */}
 
       {/* could make this an id selector */}
       <div className='main-content z-10'>{children}</div>
