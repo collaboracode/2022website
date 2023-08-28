@@ -23,6 +23,14 @@
  - GITHUB_CLIENT_ID 
  - GITHUB_CLIENT_SECRET
  - NEXTAUTH_SECRET //$ openssl rand -base64 32
+ - USER_TABLE_NAME dynamoDB table name
+ - BLOG_TABLE_NAME dynamoDB table name
+ - ENV (DEV for local db development)
+
+ ## start up localDB
+ - make sure docker and docker-compose (version 3.3) are installed
+ - run docker-compose up
+ - (should refactor this to run a shell script to init the tables) visit /api/setup/dbsetup to create tables
 ## DB schemas
 ### blog
 ```

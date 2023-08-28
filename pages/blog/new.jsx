@@ -37,11 +37,11 @@ export default function newBlog() {
   }
 
   const post = () => {
-    save(true)
+    save(false)
   }
 
   const draft = () => {
-    save(false)
+    save(true)
   }
 
   const handleChange = (e) => {
