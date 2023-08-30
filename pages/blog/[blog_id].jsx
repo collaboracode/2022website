@@ -1,9 +1,10 @@
 import { Container, Row } from "reactstrap";
-// import ReactHtmlParser from "react-html-parser";
+import parse from "html-react-parser";
 import Background from "../../components/background";
 import styles from "../../styles/blog.module.scss";
 
 export default function Blog(props) {
+  console.log("props: ", props)
   const { title, content, author } = props
   return (
     <>
@@ -18,8 +19,8 @@ export default function Blog(props) {
         </Row>
         </div>
         <Row className="bg-about">
-          {/* {ReactHtmlParser(content)} */}
-          {content}
+          {parse(content)}
+          {/* {content} */}
         </Row>
       </Container>
     </>
@@ -31,6 +32,7 @@ export async function getStaticProps(context) {
   const apiURL = `${process.env.ORIGIN}/api/posts/${params.blog_id}`
   const res = await fetch(apiURL);
   const blog = await res.json()
+  console.log("blog: ", blog)
   return {
     props: {
       title: blog.title,

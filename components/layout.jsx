@@ -254,10 +254,11 @@ export default function Layout(props) {
               </NavLink>
             </NavItem>
           </Nav>
-          {/* {
-            testPath("blog") === true && <sessionButton/>
-          } */}
-          <SessionButton/>
+            {
+              // todo get this from shifting over the rest of the nav
+              testPath("blog") === true && <SessionButton />
+            }
+          {/* <SessionButton/> */}
         </Collapse>
       </Navbar>
 

@@ -1,32 +1,16 @@
-import { DynamoDBClient, CreateTableCommand } from "@aws-sdk/client-dynamodb";
-import {
-  DynamoDBDocumentClient,
-  PutCommand
-} from "@aws-sdk/lib-dynamodb";
+import { CreateTableCommand } from "@aws-sdk/client-dynamodb";
+import client from "../../../utils/clientDB";
+// import {
+//   DynamoDBDocumentClient,
+//   PutCommand
+// } from "@aws-sdk/lib-dynamodb";
 
-const userTableName = 'collaboracode-blog-users-dev';
-const blogTableName = "collaboracode-blog-2023-dev";
+const userTableName = process.env.USER_TABLE_NAME //'collaboracode-blog-users-dev';
+const blogTableName = process.env.BLOG_TABLE_NAME //"collaboracode-blog-2023-dev";
 
 
 export default async function handler(req, res) {
-
-  const client = process.env.environment === 'TEST' ?
-    // local version
-    new DynamoDBClient({
-      endpoint: "http://localhost:8000/",
-      credentials: {
-        accessKeyId: process.env.AWS_ID,
-        secretAccessKey: process.env.AWS_KEY
-      },
-    }) :
-    // live version
-    new DynamoDBClient({
-      region: "us-west-2", credentials: {
-        accessKeyId: process.env.AWS_ID,
-        secretAccessKey: process.env.AWS_KEY
-      }
-    });
-
+  
   const userTableCmd = new CreateTableCommand({
     TableName: userTableName,
     AttributeDefinitions: [
