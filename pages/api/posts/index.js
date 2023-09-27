@@ -11,12 +11,12 @@ const authOptions = {
         })
     ],
     secret: process.env.NEXTAUTH_SECRET
-   /* callbacks: {
-        async jwt({ token }) {
-            token.userRole = "admin"
-            return token
-        },
-    }, */
+    /* callbacks: {
+         async jwt({ token }) {
+             token.userRole = "admin"
+             return token
+         },
+     }, */
 }
 
 // import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
@@ -46,7 +46,7 @@ export default function handler(req, res) {
                     FilterExpression: "attribute_not_exists(#draft) OR #draft = :val",
                     ExpressionAttributeNames: { "#draft": "draft" },
                     ExpressionAttributeValues: {
-                        ":val": true
+                        ":val": false
                     }
                 })
             ).then((data) => {
@@ -58,7 +58,15 @@ export default function handler(req, res) {
             // console.log(req.body)
             let requestJSON = req.body
             getServerSession(req, res, authOptions).then((session) => {
-                // console.log('session: ' + JSON.stringify(session));
+                console.log('session: ' + JSON.stringify(session));
+                console.log('id' + requestJSON.id,
+                    'author:' + session.user.name,
+                    'title:' + requestJSON.title,
+                    'channel:' + requestJSON.channel,
+                    'date:' + requestJSON.date,
+                    'content:' + requestJSON.content,
+                    'draft:' + requestJSON.draft,
+                    'changed:' + requestJSON.changed);
 
                 dynamo.send(
                     new PutCommand({
@@ -72,17 +80,15 @@ export default function handler(req, res) {
                             content: requestJSON.content,
                             draft: requestJSON.draft,
                             changed: requestJSON.changed
-                        }
+                        },
+                        // ReturnValues: "ALL_OLD"
                     })
                 ).then((data) => {
                     // conso
-                    res.status(201).json(data.Items);
+                    console.log("what is data?", data)
+                    res.status(201).json({ json: "test" })//.json(data.Items);
                     // res.end()
-                }).catch((error) => {
-                    console.log(JSON.stringify(error));
-                   res.status(500).json(error);
-                }); // I assume the post is similar
-                // } else {
+                });
             })
                 .catch(() => {
                     // Not Signed in

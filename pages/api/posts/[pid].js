@@ -45,7 +45,7 @@ export default function handler(req, res) {
           TableName: tableName,
           Key: {
             id: parseInt(pid),
-            // channel: 'main'
+            channel: 'main'
           },
         })
       ).then((data) => {

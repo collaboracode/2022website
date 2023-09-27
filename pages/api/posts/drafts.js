@@ -23,7 +23,7 @@ export default function handler(req, res) {
 
           TableName: process.env.BLOG_TABLE_NAME,
 
-          FilterExpression: "attribute_not_exists(#draft) OR #draft = :val",
+          FilterExpression: "#draft = :val",
           ExpressionAttributeNames: { "#draft": "draft" },
           ExpressionAttributeValues: {
             ":val": true

@@ -44,10 +44,7 @@ export default async function handler(req, res) {
            AttributeName: "title",
            AttributeType: "S",
        },
-       {
-           AttributeName: "channel",
-           AttributeType: "S",
-       },
+
        {
            AttributeName: "date",
            AttributeType: "S",
@@ -67,12 +64,20 @@ export default async function handler(req, res) {
       {
         AttributeName: "id",
         AttributeType: "N",
-      }
+      },
+      {
+        AttributeName: "channel",
+        AttributeType: "S",
+      },
     ],
     KeySchema: [
       {
         AttributeName: "id",
         KeyType: "HASH",
+      },
+      {
+        AttributeName: "channel",
+        KeyType: "RANGE",
       },
     ],
     ProvisionedThroughput: {

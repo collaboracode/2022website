@@ -5,7 +5,7 @@ import styles from "../../styles/blog.module.scss";
 
 export default function Blog(props) {
   console.log("props: ", props)
-  const { title, content, author } = props
+  const { title, content, author, draft, channel } = props
   return (
     <>
       <Background/>
@@ -13,9 +13,13 @@ export default function Blog(props) {
         <div className="bg-featured">
         <Row>
           <h2>{title}</h2>
+          <h3>Is draft? {draft ? "true": "false"}</h3>
         </Row>
         <Row>
           <h3>Author: {author}</h3>
+        </Row>
+        <Row>
+          <h3>Channel: {channel}</h3>
         </Row>
         </div>
         <Row className="bg-about">
@@ -37,7 +41,11 @@ export async function getStaticProps(context) {
     props: {
       title: blog.title,
       content: blog.content,
-      author: blog.author
+      author: blog.author,
+      draft: blog.draft,
+      changed: blog.changed,
+      channel: blog.channel,
+      date: blog.date
     }, // will be passed to the page component as props
   }
 }

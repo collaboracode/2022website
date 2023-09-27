@@ -44,7 +44,7 @@ export default function SessionButton() {
 
 function DraftsDropdown({ drafts }) {
   return <UncontrolledDropdown group className="mr-4">
-    <Button color="primary">
+    <Button color="primary p5 ">
       My Drafts
     </Button>
     <DropdownToggle
@@ -57,7 +57,7 @@ function DraftsDropdown({ drafts }) {
       </DropdownItem>
       {drafts.map(draft => {
         return (
-          <DropdownItem key={draft.id} Link href={`/blog/${draft.id}`}>
+          <DropdownItem key={draft.id} href={`/blog/edit/${draft.id}`}>
             {/* <Link href={`/blog/${draft.id}`}></Link> */}
             {/* <a href={process.env.ORIGIN}> */}
               {draft.title}
