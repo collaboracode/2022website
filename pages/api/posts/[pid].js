@@ -18,7 +18,7 @@ export default function handler(req, res) {
 
   switch (req.method) {
     case 'PUT':
-      requestJSON = JSON.parse(req.body)
+      requestJSON = req.body
       dynamo.send(
         new PutCommand({
           TableName: tableName,

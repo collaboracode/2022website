@@ -4,7 +4,7 @@ import Background from "../../components/background";
 import styles from "../../styles/blog.module.scss";
 
 export default function Blog(props) {
-  console.log("props: ", props)
+  // console.log("props: ", props)
   const { title, content, author, draft, channel } = props
   return (
     <>
@@ -13,7 +13,6 @@ export default function Blog(props) {
         <div className="bg-featured">
         <Row>
           <h2>{title}</h2>
-          <h3>Is draft? {draft ? "true": "false"}</h3>
         </Row>
         <Row>
           <h3>Author: {author}</h3>
@@ -36,7 +35,7 @@ export async function getStaticProps(context) {
   const apiURL = `${process.env.ORIGIN}/api/posts/${params.blog_id}`
   const res = await fetch(apiURL);
   const blog = await res.json()
-  console.log("blog: ", blog)
+  // console.log("blog: ", blog)
   return {
     props: {
       title: blog.title,

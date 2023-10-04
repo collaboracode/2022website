@@ -32,11 +32,13 @@ export default function Gallery({ Component, pageProps, projects }) {
                         {/* //todo make this an array of images, and make it a bootstrap carousel */}
                         {/* //todo add onclick to go to page dedicated to the project with list of collaborators for the project */}
                         {mainImage?.link && mainImage?.width && mainImage?.height && <Image
+                          className={styles.image}
                           src={mainImage.link}
                           alt="Picture "
                           width={mainImage.width}
                           height={mainImage.height}
-                          layout="responsive"
+                          priority={true}
+                          // layout="responsive"
                         />}
                         <CardBody className={styles.cardBody}>
                           {title && <CardTitle tag={'h2'}>{title}</CardTitle>}

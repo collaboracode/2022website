@@ -15,7 +15,7 @@
  - AWS_ID
  - AWS_KEY
  - ORIGIN
- - TINY_KEY // the api key for TinyMCE 
+ - TINY_KEY // the api key for TinyMCE (for dev, but for prod we should register the domain)
  - DISCORD_URL // web hook to newcomers integration channel (posts data from welcome fill out form)
  - ENVIRONMENT = 'TEST' || 'PROD' // used to determine which dynamo connection to use
  - DYNAMOURL = 'http://localhost:8000' || 'https://dynamodb.us-west-2.amazonaws.com' // used to determine which dynamo connection to use
