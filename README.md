@@ -1,7 +1,6 @@
 ## TODO: finish working on auth
-- get blog/new working again
 - add backend checks for roles
-- maybe have a db of users and their roles
+- finish db adapter for next auth
 
 ## TODO: Make modal display on welcome submit - this is done
 ## TODO: upgrade to nextjs 13 and get cookies working
@@ -51,3 +50,5 @@
   password: string
   roles: {"editor": false, "poster": false, "admin": false,} // defaults
 ```
+
+### DynamoAdapter for NextAuth DB

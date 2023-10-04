@@ -12,7 +12,10 @@ console.log('log props', props)
   const [author, setAuthor] = useState("string")
   getSession().then((s) => {
     // console.log('s: ',s.user.name)
-    setAuthor(s.user.name)
+    if (s) {
+      setAuthor(s.user.name)
+    }
+    
   })
   const save = async (isDraft) => {
     if (editorRef.current /*// todo add user check here */) {

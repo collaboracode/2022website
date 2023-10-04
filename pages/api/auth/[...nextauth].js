@@ -1,9 +1,28 @@
 import NextAuth, { NextAuthOptions } from "next-auth"
-import GoogleProvider from "next-auth/providers/google"
-import FacebookProvider from "next-auth/providers/facebook"
+import { DynamoDB, DynamoDBClientConfig } from "@aws-sdk/client-dynamodb"
+import { DynamoDBDocument } from "@aws-sdk/lib-dynamodb"
+// import GoogleProvider from "next-auth/providers/google"
+// import FacebookProvider from "next-auth/providers/facebook"
 import GithubProvider from "next-auth/providers/github"
-import TwitterProvider from "next-auth/providers/twitter"
-import Auth0Provider from "next-auth/providers/auth0"
+// import TwitterProvider from "next-auth/providers/twitter"
+// import Auth0Provider from "next-auth/providers/auth0"
+import { DynamoDBAdapter } from "@auth/dynamodb-adapter"
+
+const config = {
+  credentials: {
+    accessKeyId: process.env.AWS_ID,
+    secretAccessKey: process.env.AWS_KEY,
+  },
+  region: "us-west-2",
+};
+
+const client = DynamoDBDocument.from(new DynamoDB(config), {
+  marshallOptions: {
+    convertEmptyValues: true,
+    removeUndefinedValues: true,
+    convertClassInstanceToMap: true,
+  },
+})
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -33,6 +52,16 @@ export const authOptions = {
     //   version: "2.0",
     // }),
   ],
+ /* adapter: DynamoDBAdapter(
+    client, {
+      tableName: "collab-next-auth"
+        partitionKey: "pk",
+        sortKey: "sk",
+        indexName: "GSI",
+        indexPartitionKey: "GSI1PK",
+        indexSortKey: "GSI1SK"
+    }
+  ),*/ 
   callbacks: {
     async jwt({ token }) {
       token.userRole = "admin"

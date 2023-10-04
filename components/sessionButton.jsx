@@ -43,14 +43,14 @@ export default function SessionButton() {
 }
 
 function DraftsDropdown({ drafts }) {
-  return <UncontrolledDropdown group className="mr-4">
-    <Button color="primary p5 ">
-      My Drafts
-    </Button>
+  return <UncontrolledDropdown group className="mr-4 bg-primary">
+    {/* <Button color="primary p5 "> */}
+     
+    {/* </Button> */}
     <DropdownToggle
       caret
       color="primary"
-    />
+    >My Drafts</DropdownToggle>
     <DropdownMenu>
       <DropdownItem header>
         Header

@@ -86,7 +86,7 @@ export default function handler(req, res) {
                 ).then((data) => {
                     // conso
                     console.log("what is data?", data)
-                    res.status(201).json({ json: "test" })//.json(data.Items);
+                    res.status(201).json(data)//.json(data.Items);
                     // res.end()
                 });
             })

@@ -5,10 +5,12 @@ import styles from '../styles/background.module.scss'
 export default function Background() {
 
   const [season, setSeason] = useState("summer")
-
+  const [width, setWidth] = useState(500)
+  const [height, setHeight] = useState(500)
   
   // Sets the background image based on the current season on the client side
   useEffect(() => {
+    
     const getSeason = d => Math.floor((d.getMonth() / 12 * 4)) % 4
     function whatHemisphere() {
       let y = new Date()
@@ -31,8 +33,22 @@ export default function Background() {
     }
   }, [])
 
+  // width and height setting
+  useEffect(() => {
+    const resize = () => {
+      setWidth(window.innerWidth)
+      setHeight(window.innerHeight)
+    }
+    resize()
+    const listener = addEventListener("resize", resize)
+    return () => {
+      removeEventListener("resize", listener)
+    }
+
+  }, [])
+
   return (
-    <Container className='lg-container mt-5 main-text'>
+    // <Container className='lg-container mt-5 main-text'>
       <div
         // id='HeroContainer'
         className={styles.HeroContainer}
@@ -42,24 +58,26 @@ export default function Background() {
           className={`${styles.HeroBg} next-image`}
           src={`/${season}.jpg`}
           alt='Collaboracode - Community, Collaboration, Code'
-          // width="100%"
-          // height="100%"
+          width={width}
+          height={height}
+          priority={true}
           // layout="responsive"
-          layout="raw"
-          fill
+          // layout="raw"
+          // fill
         />
         <Image
           // id='HeroImg'
           className={styles.HeroImg}
           src="/puzzle_render-1.webp"
           alt="Collaboracode - Community, Collaboration, Code"
-          // width="500"
-          // height="500"
+          priority={true}
+          width={width}
+          height={height}
           // layout="responsive"
-          layout="raw"
-          fill
+          // layout="raw"
+          // fill
         />
       </div>
-    </Container>
+    // </Container>
   )
 }

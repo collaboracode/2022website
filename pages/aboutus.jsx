@@ -12,6 +12,7 @@ import Image from 'next/image'
 import styles from '../styles/aboutus.module.scss'
 import getShape from '../components/getShape'
 import Background from '../components/background'
+import { useEffect, useState } from 'react'
 
 export default function AboutUs() {
   return (
@@ -104,18 +105,39 @@ export default function AboutUs() {
             <a className='mr-2' href="https://github.com/jeffjeffjeffh">GitHub</a>
             <a className='ml-2' href="https://www.linkedin.com/in/jeff-harm-b201921b4/">LinkedIn</a>
           </Col>
-          <Col sm={12} md={5} lg={3} className={`${getShape()} bg-featured`}>
+          <Blurb 
+          name={"Rich Murphy"} 
+          blurb={"I am working on deploying my own website to improve my coding abilities. This group has been supportive throughout my journey and has answered many questions both on the front and backend."}
+          />
+          {/* <Col sm={12} md={5} lg={3} className={`${getShape()} bg-featured`}>
             <h3>Rich Murphy</h3>
             <p>
-              I am working on deploying my own website to improve my coding abilities. This group has been supportive throughout my journey and has answered many questions both on the front and backend.  
+              I am working on deploying my own website to improve my coding abilities. This group has been supportive throughout my journey and has answered many questions both on the front and backend.
             </p>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     </>
+  )
+}
 
-
-
-
+/**
+ * @param {{name: string, blurb: string, links: ({url: string, name: string}[])}}
+ */
+function Blurb({ name, blurb, links }) {
+  const [shape, setShape] = useState("radius-one")
+  useEffect(() => {
+    setShape(getShape())
+  },)
+  return (
+    <Col sm={12} md={5} lg={3} className={`${getShape()} bg-featured`}>
+      <h3>{name}</h3>
+      <p>
+        {blurb}
+      </p>
+      {links !== undefined && links.length > 0 && links.forEach(link => {
+        <a className='mr-2' href={link.url}>{link.name}</a>
+      })}
+    </Col>
   )
 }
