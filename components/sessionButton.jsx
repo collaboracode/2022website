@@ -23,11 +23,7 @@ export default function SessionButton() {
   if (session) {
     return (
       <>
-        {/* <p className="color-two mr-4">
-          Signed in as {session.user.name}
-        </p> */}
-        {/* //todo make this a drop down menu */}
-        {drafts.length > 0 && <DraftsDropdown drafts={drafts} />}
+        {drafts && <DraftsDropdown  drafts={drafts} />}
         <Button color="danger" onClick={() => signOut()}>Sign out</Button>
       </>
     )
@@ -44,43 +40,21 @@ export default function SessionButton() {
 
 function DraftsDropdown({ drafts }) {
   return <UncontrolledDropdown group className="mr-4 bg-primary">
-    {/* <Button color="primary p5 "> */}
-     
-    {/* </Button> */}
     <DropdownToggle
       caret
       color="primary"
     >My Drafts</DropdownToggle>
     <DropdownMenu>
-      <DropdownItem header>
-        Header
+      <DropdownItem href={"/blog/new"}>
+        Create new
       </DropdownItem>
-      {drafts.map(draft => {
+      {drafts.length > 0 && drafts.map(draft => {
         return (
           <DropdownItem key={draft.id} href={`/blog/edit/${draft.id}`}>
-            {/* <Link href={`/blog/${draft.id}`}></Link> */}
-            {/* <a href={process.env.ORIGIN}> */}
-              {draft.title}
-            {/* </a> */}
+            {draft.title}
           </DropdownItem>
         )
       })}
-      {/* <DropdownItem text>
-      Dropdown Item Text
-    </DropdownItem>
-    <DropdownItem disabled>
-      Action (disabled)
-    </DropdownItem>
-    <DropdownItem divider />
-    <DropdownItem>
-      Foo Action
-    </DropdownItem>
-    <DropdownItem>
-      Bar Action
-    </DropdownItem>
-    <DropdownItem>
-      Quo Action
-    </DropdownItem> */}
     </DropdownMenu>
   </UncontrolledDropdown>
 }

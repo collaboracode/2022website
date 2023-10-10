@@ -1,15 +1,84 @@
-version: "3.3"
+# version: "3.3"
+
+# services:
+#   localstack:
+#     container_name: "${LOCALSTACK_DOCKER_NAME-localstack_main}"
+#     image: localstack/localstack
+#     ports:
+#       - "127.0.0.1:4566:4566"            # LocalStack Gateway
+#       - "127.0.0.1:4510-4559:4510-4559"  # external services port range
+#     environment:
+#       - DEBUG=${DEBUG-}
+#       - DOCKER_HOST=unix:///var/run/docker.sock
+#     volumes:
+#       - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+#       - "/var/run/docker.sock:/var/run/docker.sock"
+
+#     command: dynamodb create-table --cli-input-json file://schema/userTable.json --endpoint-url http://0.0.0.0:4566 
+#     command: dynamodb create-table --cli-input-json file://schema/authTable.json --endpoint-url http://0.0.0.0:4566
+#     command: dynamodb create-table --cli-input-json file://schema/blogTable.json --endpoint-url http://0.0.0.0:4566
+
+
+
 
 services:
-  localstack:
-    container_name: "${LOCALSTACK_DOCKER_NAME-localstack_main}"
-    image: localstack/localstack
-    ports:
-      - "127.0.0.1:4566:4566"            # LocalStack Gateway
-      - "127.0.0.1:4510-4559:4510-4559"  # external services port range
-    environment:
-      - DEBUG=${DEBUG-}
-      - DOCKER_HOST=unix:///var/run/docker.sock
+  dynamodb:
+    image: amazon/dynamodb-local:1.16.0
+    container_name: app-dynamodb
+    hostname: app-dynamodb
     volumes:
-      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
-      - "/var/run/docker.sock:/var/run/docker.sock"
+      - app_dynamodb:/home/dynamodblocal
+    working_dir: /home/dynamodblocal
+    ports:
+      - "8000:8000"
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ."
+    restart: unless-stopped
+
+  dynamodb_admin:
+    image: aaronshaf/dynamodb-admin
+    container_name: app-dynamodb_admin
+    ports:
+      - "8001:8001"
+    environment:
+      - DYNAMO_ENDPOINT=http://dynamodb:8000
+    depends_on:
+      - dynamodb
+    restart: unless-stopped
+
+  dynamodb_migrator:
+    image: banst/awscli:1.18.76
+    container_name: app-dynamodb_migrator
+    working_dir: /home/dynamodblocal
+    command: 
+      - |
+        dynamodb create-table --cli-input-json file://userTable.json --endpoint-url http://dynamodb:8000 
+        dynamodb create-table --cli-input-json file://authTable.json --endpoint-url http://dynamodb:8000
+        dynamodb create-table --cli-input-json file://blogTable.json --endpoint-url http://dynamodb:8000 
+    volumes:
+      - ./schema:/home/dynamodblocal
+    environment:
+      - AWS_ACCESS_KEY_ID=unicorn_user
+      - AWS_SECRET_ACCESS_KEY=magical_password
+      - AWS_DEFAULT_REGION=ap-southeast-1
+    depends_on:
+      - dynamodb
+
+  # dynamodb_seeder:
+  #   image: banst/awscli:1.18.76
+  #   container_name: app-dynamodb_seeder
+  #   working_dir: /home/dynamodblocal
+  #   command: dynamodb batch-write-item --request-items file://product_seeder.json --endpoint-url http://dynamodb:8000
+  #   volumes:
+  #     - ./schema:/home/dynamodblocal
+  #   environment:
+  #     - AWS_ACCESS_KEY_ID=unicorn_user
+  #     - AWS_SECRET_ACCESS_KEY=magical_password
+  #     - AWS_DEFAULT_REGION=ap-southeast-1
+  #   depends_on:
+  #     - dynamodb_migrator
+  #     - dynamodb
+  #   restart: on-failure
+
+volumes:
+  app_dynamodb:
+    driver: local

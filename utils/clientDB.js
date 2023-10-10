@@ -2,7 +2,7 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 const client = process.env.ENV === 'DEV' ?
 // local version
 new DynamoDBClient({
-  endpoint: "http://localhost:4566",
+  endpoint: "http://localhost:8000",
   region: "us-west-2",
   credentials: {
     accessKeyId: process.env.AWS_ID,

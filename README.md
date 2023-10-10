@@ -11,6 +11,8 @@
 ## TODO: Break out header into separate components
 - IsOpen attribute in Reactstrap
 
+## TODO: get drafts on nav to update when saving new drafts, and posting old ones
+
 ## Environment variables
  - AWS_ID
  - AWS_KEY

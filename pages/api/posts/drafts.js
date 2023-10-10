@@ -2,7 +2,6 @@ import { DynamoDBDocumentClient, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { getServerSession } from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 import client from "../../../utils/clientDB";
-// import { authOptions } from 'pages/api/auth/[...nextauth]'
 const authOptions = {
   providers: [
     GithubProvider({
@@ -18,20 +17,22 @@ export default function handler(req, res) {
     // GET MEANS READ /posts (READ ALL)
     // PUT Updates
     case 'GET':
+  getServerSession(req, res, authOptions).then(session => {
       dynamo.send(
         new ScanCommand({
-
           TableName: process.env.BLOG_TABLE_NAME,
-
-          FilterExpression: "#draft = :val",
-          ExpressionAttributeNames: { "#draft": "draft" },
+          FilterExpression: "#draft = :val AND #author = :val2",
+          ExpressionAttributeNames: { "#draft": "draft", "#author": "author" },
           ExpressionAttributeValues: {
-            ":val": true
+            ":val": true,
+            ":val2": session?.user ? session.user.name : false // todo test this
           }
         })
       ).then((data) => {
         res.status(200).json(data.Items);
       })
+  })
+
       break;
   }
 }

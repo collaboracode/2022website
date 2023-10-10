@@ -1,44 +1,25 @@
 import React, { useRef, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 
-import { Container, Input, Label } from "reactstrap"
+import { Button, Container, Input, Label } from "reactstrap"
 import Background from '../../../components/background';
-// import { redirect } from 'next/dist/server/api-utils';
 import { getSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 export default function newBlog(props) {
-  const { blog, TINY_KEY } = props
   const editorRef = useRef(null);
-  const [title, setTitle] = useState(blog.title)
-  // const [author, setAuthor] = useState("string")
-  // getSession().then((s) => {
-  //   // console.log('s: ',s.user.name)
-  //   if (s) {
-  //     setAuthor(s.user.name)
-  //   }
+  const router = useRouter()
 
-  // })
+  const { blog, TINY_KEY } = props
+  const [title, setTitle] = useState(blog.title)
+
   const save = async (isDraft) => {
-    console.log(
-      JSON.stringify(
-        {
-          id: Date.now(),
-          author: blog.author, // maybe make this username, or name from the account
-          title: title,
-          channel: blog.channel, //? maybe use select
-          date: blog.date,
-          content: editorRef.current.getContent(),
-          draft: isDraft,
-          changed: Date.now()
-        })
-    )
     if (editorRef.current /*// todo add user check here */) {
-      // console.log(editorRef.current.getContent())
-      await fetch(`/api/posts/${blog.id}`, {
+      fetch(`/api/posts/${blog.id}`, {
         method: 'PUT',
         body: JSON.stringify(
           {
             id: Date.now(),
-            author: blog.author, // maybe make this username, or name from the account
+            author: blog.author,
             title: title,
             channel: blog.channel, //? maybe use select
             date: blog.date,
@@ -51,10 +32,33 @@ export default function newBlog(props) {
           'Content-Type': 'application/json'
         }
       })
-      // todo add something to let the user know it worked, and clear the fields
+        .then(data => {
+          if (data.status === 200 && !isDraft) {
+            router.push(`/blog/${blog.id}`)
+          }
+        })
     }
   }
-
+  const deleteBlog = () => {
+    if (editorRef.current /*// todo add user check here */) {
+      fetch(`/api/posts/${blog.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(data => {
+          if (data.status === 204) {
+            router.push(`/blog`)
+          }
+          else {
+            // todo add custom alert
+            alert(`something went wrong status: ${data.status}`)
+          }
+        })
+    }
+  }
   const post = () => {
     save(false)
   }
@@ -99,8 +103,11 @@ export default function newBlog(props) {
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
           }}
         />
-        <button onClick={post}>Post</button>
-        <button onClick={draft}>Save</button>
+        <div className='mt-1'>
+          <Button onClick={post} color='success' className='mr-3'>{blog.draft ? "Post" : "Save Post"}</Button>
+          {blog.draft && <Button onClick={draft} color='success' className='mr-3'>Save</Button>}
+          <Button onClick={deleteBlog} color='danger'>Delete</Button>
+        </div>
       </Container>
     </>
   )

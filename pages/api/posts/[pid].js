@@ -55,7 +55,6 @@ export default function handler(req, res) {
 
     case 'DELETE': // Exterminate, Exterminate! Exterminate!!!
       console.log(req.body);
-      // requestJSON = JSON.parse(req.body)
       dynamo.send(
         new DeleteCommand({
           TableName: tableName,

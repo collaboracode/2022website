@@ -77,7 +77,7 @@ export default function AboutUs() {
               + " I enjoy solving problems and sharing my knowledge with others."
             }
             links={[
-              { name: "GitHub", url: "https://github.com/45acpUSA" }, 
+              { name: "GitHub", url: "https://github.com/45acpUSA" },
               { name: "LinkedIn", url: "https://www.linkedin.com/in/mau" }
             ]}
           />
@@ -118,22 +118,22 @@ export default function AboutUs() {
 
           <GroupMemberMiniBio
             name={"Jeff Harm"}
-            blurb={
-              " I am working through the Thinkful Engineering program,"
-              + " and joined Collaboracode to practice more and learn blazingly faster!"
-            }
             links={[
-              { name: "GitHub", url: "https://github.com/jeffjeffjeffh" }, 
+              { name: "GitHub", url: "https://github.com/jeffjeffjeffh" },
               { name: "LinkedIn", url: "https://www.linkedin.com/in/jeff-harm-b201921b4" }
             ]}
-          />
+          >
+            <p>I am working through the Thinkful Engineering program,
+              and joined Collaboracode to practice more and learn <em>blazingly faster!</em>
+            </p>
+          </GroupMemberMiniBio>
 
           <GroupMemberMiniBio
             name={"Rich Murphy"}
             blurb={"I am working on deploying my own website to improve my coding abilities."
-            + " This group has been supportive throughout my journey"
-            + " and has answered many questions both on the front and backend."
-          }
+              + " This group has been supportive throughout my journey"
+              + " and has answered many questions both on the front and backend."
+            }
           />
         </Row>
       </Container>
@@ -148,7 +148,7 @@ export default function AboutUs() {
  * links: {url: string, name: string}[]
  * }}
  */
-function GroupMemberMiniBio({ name, blurb, links }) {
+function GroupMemberMiniBio({ name, blurb, links, children }) {
   const [shape, setShape] = useState("radius-one")
   useEffect(() => {
     setShape(getShape())
@@ -159,9 +159,13 @@ function GroupMemberMiniBio({ name, blurb, links }) {
       <p>
         {blurb}
       </p>
-      {links !== undefined && links.length > 0 && links.map(link => {
-        return <a key={link.name} /* the name should be unique anyway */ className='mr-2' href={link.url}>{link.name}</a>
-      })}
+      {children}
+      <div>
+
+        {links !== undefined && links.length > 0 && links.map(link => {
+          return <a key={link.name} /* the name should be unique anyway */ className='mr-2' href={link.url}>{link.name}</a>
+        })}
+      </div>
     </Col>
   )
 }

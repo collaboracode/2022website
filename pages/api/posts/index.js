@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 import client from "../../../utils/clientDB";
+
 // import { authOptions } from 'pages/api/auth/[...nextauth]'
 const authOptions = {
 
@@ -19,7 +20,6 @@ const authOptions = {
      }, */
 }
 
-// import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
     DynamoDBDocumentClient,
     ScanCommand,
@@ -40,9 +40,7 @@ export default function handler(req, res) {
         case 'GET':
             dynamo.send(
                 new ScanCommand({
-
                     TableName: tableName,
-
                     FilterExpression: "attribute_not_exists(#draft) OR #draft = :val",
                     ExpressionAttributeNames: { "#draft": "draft" },
                     ExpressionAttributeValues: {
@@ -55,22 +53,21 @@ export default function handler(req, res) {
             break;
         // POST CREATE NEW
         case 'POST':
-            // console.log(req.body)
             let requestJSON = req.body
             getServerSession(req, res, authOptions).then((session) => {
                 console.log('session: ' + JSON.stringify(session));
                 console.log('id' + requestJSON.id,
-                    'author:' + session.user.name,
+                'author:' + session.user.name,
                     'title:' + requestJSON.title,
                     'channel:' + requestJSON.channel,
                     'date:' + requestJSON.date,
                     'content:' + requestJSON.content,
                     'draft:' + requestJSON.draft,
                     'changed:' + requestJSON.changed);
-
-                dynamo.send(
-                    new PutCommand({
-                        TableName: tableName,
+                    
+                    dynamo.send(
+                        new PutCommand({
+                            TableName: tableName,
                         Item: {
                             id: requestJSON.id,
                             author: session.user.name,
@@ -81,19 +78,14 @@ export default function handler(req, res) {
                             draft: requestJSON.draft,
                             changed: requestJSON.changed
                         },
-                        // ReturnValues: "ALL_OLD"
                     })
-                ).then((data) => {
-                    // conso
-                    console.log("what is data?", data)
-                    res.status(201).json(data)//.json(data.Items);
-                    // res.end()
-                });
-            })
+                    ).then((data) => {
+                        res.status(201).json(data)
+                    });
+                })
                 .catch(() => {
                     // Not Signed in
                     res.status(401).json("")
-                    // res.end()
                 })
             break;
     }
