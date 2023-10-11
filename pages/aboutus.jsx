@@ -70,51 +70,71 @@ export default function AboutUs() {
           <h2>Our Team members</h2>
         </Row>
         <Row className={styles.members}>
-          <Col sm={12} md={5} lg={3} className={`${getShape()} bg-featured`}>
-            <h3>Matt Au</h3>
-            <p>I am software consultant that works in a few languages. I enjoy solving problems and sharing my knowledge with others.</p>
-            <a className='mr-2' href="https://github.com/45acpUSA">GitHub</a>
-            <a className='ml-2' href="https://www.linkedin.com/in/mau/">LinkedIn</a>
-          </Col>
-          <Col sm={12} md={5} lg={3} className={`${getShape()} bg-featured`}>
-            <h3>Albert Arias</h3>
-            <p>Hi there, I am looking to make a change into a web development career. Enjoy spending time learning everyday. </p>
-            <a className='mr-2' href="https://github.com/wild-o">GitHub</a>
-            <a className='ml-2' href="https://www.linkedin.com/in/albert-arias">LinkedIn</a>
-          </Col>
-          <Col sm={12} md={5} lg={3} className={`${getShape()} bg-featured`}>
-            <h3>Derek Galen</h3>
-            <p>I do contract software development in a few languages. Enjoying meeting new people, helping build things, solving problems that others are encountering.</p>
-            <a className='mr-2' href="https://github.com/dgalen">GitHub</a>
-            <a className='ml-2' href="https://www.linkedin.com/in/derek-galen">LinkedIn</a>
-          </Col>
-          <Col sm={12} md={5} lg={3} className={`${getShape()} bg-featured`}>
-            <h3>Michael Kielpinski</h3>
-            <p>
-              I am a self taught web developer, and still I have much to learn still, but that will never change there is always so much to learn,
-              and you can't know everything, but with enough determination you can surprize yourself.
-            </p>
-            <a className='mr-2' href="https://github.com/S0UPernova">GitHub</a>
-            <a className='ml-2' href="https://www.linkedin.com/in/michael-kielpinski-2a7019202/">LinkedIn</a>
-          </Col>
-          <Col sm={12} md={5} lg={3} className={`${getShape()} bg-featured`}>
-            <h3>Jeff Harm</h3>
-            <p>
-              I am working through the Thinkful Engineering program, and joined Collaboracode to practice more and learn <em>blazingly faster!</em>
-            </p>
-            <a className='mr-2' href="https://github.com/jeffjeffjeffh">GitHub</a>
-            <a className='ml-2' href="https://www.linkedin.com/in/jeff-harm-b201921b4/">LinkedIn</a>
-          </Col>
-          <Blurb 
-          name={"Rich Murphy"} 
-          blurb={"I am working on deploying my own website to improve my coding abilities. This group has been supportive throughout my journey and has answered many questions both on the front and backend."}
+          <GroupMemberMiniBio
+            name={"Matt Au"}
+            blurb={
+              "I am software consultant that works in a few languages."
+              + " I enjoy solving problems and sharing my knowledge with others."
+            }
+            links={[
+              { name: "GitHub", url: "https://github.com/45acpUSA" },
+              { name: "LinkedIn", url: "https://www.linkedin.com/in/mau" }
+            ]}
           />
-          {/* <Col sm={12} md={5} lg={3} className={`${getShape()} bg-featured`}>
-            <h3>Rich Murphy</h3>
-            <p>
-              I am working on deploying my own website to improve my coding abilities. This group has been supportive throughout my journey and has answered many questions both on the front and backend.
+
+          <GroupMemberMiniBio
+            name={"Albert Arias"}
+            blurb={
+              "Hi there, I am looking to make a change into a web development career."
+              + " Enjoy spending time learning everyday."
+            }
+            links={[
+              { name: "GitHub", url: "https://github.com/wild-o" },
+              { name: "LinkedIn", url: "https://www.linkedin.com/in/albert-arias" }
+            ]}
+          />
+
+          <GroupMemberMiniBio
+            name={"Derek Galen"}
+            blurb={
+              "I do contract software development in a few languages. Enjoying meeting new people,"
+              + " helping build things, solving problems that others are encountering."
+            }
+            links={[{ name: "GitHub", url: "https://github.com/dgalen" }, { name: "LinkedIn", url: "https://www.linkedin.com/in/derek-galen" }]}
+          />
+
+          <GroupMemberMiniBio
+            name={"Michael Kielpinski"}
+            blurb={
+              "I am a self taught web developer, and still I have much to learn still,"
+              + " but that will never change there is always so much to learn,"
+              + " and you can't know everything, but with enough determination you can surprize yourself."
+            }
+            links={[
+              { name: "GitHub", url: "https://github.com/S0UPernova" },
+              { name: "LinkedIn", url: "https://www.linkedin.com/in/michael-kielpinski" }
+            ]}
+          />
+
+          <GroupMemberMiniBio
+            name={"Jeff Harm"}
+            links={[
+              { name: "GitHub", url: "https://github.com/jeffjeffjeffh" },
+              { name: "LinkedIn", url: "https://www.linkedin.com/in/jeff-harm-b201921b4" }
+            ]}
+          >
+            <p>I am working through the Thinkful Engineering program,
+              and joined Collaboracode to practice more and learn <em>blazingly faster!</em>
             </p>
-          </Col> */}
+          </GroupMemberMiniBio>
+
+          <GroupMemberMiniBio
+            name={"Rich Murphy"}
+            blurb={"I am working on deploying my own website to improve my coding abilities."
+              + " This group has been supportive throughout my journey"
+              + " and has answered many questions both on the front and backend."
+            }
+          />
         </Row>
       </Container>
     </>
@@ -122,22 +142,30 @@ export default function AboutUs() {
 }
 
 /**
- * @param {{name: string, blurb: string, links: ({url: string, name: string}[])}}
+ * @param {{
+ * name: string, 
+ * blurb: string, 
+ * links: {url: string, name: string}[]
+ * }}
  */
-function Blurb({ name, blurb, links }) {
+function GroupMemberMiniBio({ name, blurb, links, children }) {
   const [shape, setShape] = useState("radius-one")
   useEffect(() => {
     setShape(getShape())
   },)
   return (
-    <Col sm={12} md={5} lg={3} className={`${getShape()} bg-featured`}>
+    <Col sm={12} md={5} lg={3} className={`${shape} bg-featured`}>
       <h3>{name}</h3>
       <p>
         {blurb}
       </p>
-      {links !== undefined && links.length > 0 && links.forEach(link => {
-        <a className='mr-2' href={link.url}>{link.name}</a>
-      })}
+      {children}
+      <div>
+
+        {links !== undefined && links.length > 0 && links.map(link => {
+          return <a key={link.name} /* the name should be unique anyway */ className='mr-2' href={link.url}>{link.name}</a>
+        })}
+      </div>
     </Col>
   )
 }

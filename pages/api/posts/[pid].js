@@ -18,7 +18,7 @@ export default function handler(req, res) {
 
   switch (req.method) {
     case 'PUT':
-      requestJSON = JSON.parse(req.body)
+      requestJSON = req.body
       dynamo.send(
         new PutCommand({
           TableName: tableName,
@@ -55,7 +55,6 @@ export default function handler(req, res) {
 
     case 'DELETE': // Exterminate, Exterminate! Exterminate!!!
       console.log(req.body);
-      // requestJSON = JSON.parse(req.body)
       dynamo.send(
         new DeleteCommand({
           TableName: tableName,
