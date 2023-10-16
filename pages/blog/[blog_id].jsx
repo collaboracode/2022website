@@ -28,7 +28,7 @@ export default function Blog(props) {
             <h3>Channel: {channel}</h3>
           </Row>
         </div>
-        <Row className="bg-about">
+        <Row className={`bg-about ${styles.blogContent}`}>
           {parse(content)}
           {/* {content} */}
         </Row>
