@@ -37,7 +37,7 @@
 ```
   id: number,
   author: string,
-  title: stirng,
+  title: string,
   channel: string
   date: Date,
   content: text,

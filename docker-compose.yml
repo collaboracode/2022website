@@ -14,18 +14,16 @@
 #       - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
 #       - "/var/run/docker.sock:/var/run/docker.sock"
 
-#     command: dynamodb create-table --cli-input-json file://schema/userTable.json --endpoint-url http://0.0.0.0:4566 
-#     command: dynamodb create-table --cli-input-json file://schema/authTable.json --endpoint-url http://0.0.0.0:4566
-#     command: dynamodb create-table --cli-input-json file://schema/blogTable.json --endpoint-url http://0.0.0.0:4566
-
-
+#     command: 
+#       - dynamodb create-table --cli-input-json file://userTable.json --endpoint-url http://app-dynamodb:4566
+#       - dynamodb create-table --cli-input-json file://authTable.json --endpoint-url http://app-dynamodb:4566
+#       - dynamodb create-table --cli-input-json file://blogTable.json --endpoint-url http://app-dynamodb:4566
 
 
 services:
   dynamodb:
-    image: amazon/dynamodb-local:1.16.0
-    container_name: app-dynamodb
-    hostname: app-dynamodb
+    image: amazon/dynamodb-local:latest
+    container_name: dynamodb
     volumes:
       - app_dynamodb:/home/dynamodblocal
     working_dir: /home/dynamodblocal
@@ -36,7 +34,7 @@ services:
 
   dynamodb_admin:
     image: aaronshaf/dynamodb-admin
-    container_name: app-dynamodb_admin
+    container_name: dynamodb_admin
     ports:
       - "8001:8001"
     environment:
@@ -46,20 +44,23 @@ services:
     restart: unless-stopped
 
   dynamodb_migrator:
-    image: banst/awscli:1.18.76
+    image: amazon/aws-cli:latest
     container_name: app-dynamodb_migrator
     working_dir: /home/dynamodblocal
+    entrypoint: bash
     command: 
+      - -c
       - |
-        dynamodb create-table --cli-input-json file://userTable.json --endpoint-url http://dynamodb:8000 
-        dynamodb create-table --cli-input-json file://authTable.json --endpoint-url http://dynamodb:8000
-        dynamodb create-table --cli-input-json file://blogTable.json --endpoint-url http://dynamodb:8000 
+        aws dynamodb create-table --cli-input-json file://authTable.json --endpoint-url http://dynamodb:8000
+        aws dynamodb create-table --cli-input-json file://userTable.json --endpoint-url http://dynamodb:8000
+        aws dynamodb create-table --cli-input-json file://blogTable.json --endpoint-url http://dynamodb:8000
+        aws dynamodb list-tables --endpoint-url http://dynamodb:8000
     volumes:
       - ./schema:/home/dynamodblocal
     environment:
       - AWS_ACCESS_KEY_ID=unicorn_user
       - AWS_SECRET_ACCESS_KEY=magical_password
-      - AWS_DEFAULT_REGION=ap-southeast-1
+      - AWS_DEFAULT_REGION=us-west-2
     depends_on:
       - dynamodb
 

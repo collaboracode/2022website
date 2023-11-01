@@ -23,15 +23,15 @@ export default function BlogEditor({ blog, TINY_KEY, username }) {
   ``
   const save = async (isDraft) => {
     if (editorRef.current /*// todo add user check here */) {
-      fetch(`/api/posts/${setID}`, {
+      fetch(`/api/posts${blog ? `/${setID}` : ""}`, {
         method: blog ? 'PUT' : 'POST',
         body: JSON.stringify(
           {
-            id: timeNow,
+            id: setID,
             author: blog?.author ? blog.author : username,
             title: title,
             channel: blog?.channel ? blog.channel : "main", //? maybe add select
-            date: blog?.date ? blog.date : timeNow,
+            date: blog?.date ? blog.date : setID,
             content: editorRef.current.getContent(),
             draft: isDraft,
             changed: timeNow

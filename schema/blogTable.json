@@ -1,6 +1,6 @@
 
 {
-  "TableName": "blogTableName",
+  "TableName": "collaboracode-blog-2023",
   "AttributeDefinitions": [
     {
       "AttributeName": "id",

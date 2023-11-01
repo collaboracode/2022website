@@ -1,6 +1,5 @@
-
-  {
-  "TableName": "userTableName",
+{
+  "TableName": "collaboracode-blog-users-dev",
   "AttributeDefinitions": [
     {
       "AttributeName": "email",
